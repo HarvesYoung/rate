@@ -44,10 +44,10 @@ class BuildTextFieldWidget extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
           color: Colors.white,
-          border: Border.all(
-            width: 1,
-            color: Colors.black12
-          )
+          // border: Border.all(
+          //   width: 1,
+          //   color: Colors.black12
+          // )
       ),
       child: Row(
           children: [
