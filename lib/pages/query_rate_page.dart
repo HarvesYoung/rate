@@ -20,7 +20,9 @@ class QueryRatePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    
+
+    final GlobalKey _listViewKey = GlobalKey();
+
     final sourceInfo = ref.watch(sourceInfoStateNotifierProvider);
     final targetInfo = ref.watch(targetInfoStateNotifierProvider);
 
@@ -78,52 +80,107 @@ class QueryRatePage extends HookConsumerWidget {
         body: Container(
           padding: EdgeInsets.all(10),
           child: ListView(
+            key: _listViewKey,
             children: [
+              SizedBox(
+                height: 120,
+                child: Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: SizedBox(
+                        width: 344,
+                        child: BuildTextFieldWidget(
+                          textEditingController: sourceCurrentController,
+                          currencyDataModel: sourceInfo,
+                          isReadonly: isReadonly,
+                          handleOnChange: (String cnt) {
+                            debugPrint('sourceInfo String = $cnt');
+                            double? d = double.tryParse(cnt);
+                            if(d == null) {
+                              return targetCurrentController.text = '';
+                            }
+                            if(exchangeResponse.targetNumber == null || cnt.isEmpty) {
+                              return targetCurrentController.text = '';
+                            }
+                            targetCurrentController.text = (d * exchangeResponse.targetNumber!).toStringAsFixed(AppConfig.fractionDigits);
+                          },
+                          handleOnTap: () {
+                            _handleShowPicker(context, ref, data: sourceInfo, isSource: true);
+                          },
+                        ),
+                      ),
+                    ),
 
-              BuildTextFieldWidget(
-                textEditingController: sourceCurrentController,
-                currencyDataModel: sourceInfo,
-                isReadonly: isReadonly,
-                handleOnChange: (String cnt) {
-                  debugPrint('sourceInfo String = $cnt');
-                  double? d = double.tryParse(cnt);
-                  if(d == null) {
-                    return targetCurrentController.text = '';
-                  }
-                  if(exchangeResponse.targetNumber == null || cnt.isEmpty) {
-                    return targetCurrentController.text = '';
-                  }
-                  targetCurrentController.text = (d * exchangeResponse.targetNumber!).toStringAsFixed(AppConfig.fractionDigits);
-                },
-                handleOnTap: () {
-                  _handleShowPicker(context, ref, data: sourceInfo, isSource: true);
-                },
-              ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: const Divider(
+                        color: Colors.white,
+                        thickness: 2,
+                      ),
+                    ),
 
-              const SizedBox(height: 5,),
-              const Divider(
-                color: Colors.white,
-                thickness: 1,
-              ),
-              const SizedBox(height: 5,),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: GestureDetector(
+                        onTap: () {
+                          // debugPrint('_listViewKey.size = ${_listViewKey.currentContext?.size?.width}');
+                          ref.read(sourceInfoStateNotifierProvider.notifier).updateModelInfo(sourceInfo.copyWith(
+                            name: targetInfo.name,
+                            code: targetInfo.code,
+                            currency: targetInfo.currency,
+                            continentPos: targetInfo.continentPos,
+                            countryPos: targetInfo.countryPos,
+                            initialText: targetInfo.initialText
+                          ));
 
-              BuildTextFieldWidget(
-                textEditingController: targetCurrentController,
-                currencyDataModel: targetInfo,
-                isReadonly: isReadonly,
-                handleOnChange: (String cnt) {
-                  double? d = double.tryParse(cnt);
-                  if(d == null) {
-                    sourceCurrentController.text = '';
-                  }
-                  if(exchangeResponse.targetNumber == null || cnt.isEmpty) {
-                    return sourceCurrentController.text = '';
-                  }
-                  sourceCurrentController.text = (d! / exchangeResponse.targetNumber!).toStringAsFixed(AppConfig.fractionDigits);
-                },
-                handleOnTap: () {
-                  _handleShowPicker(context, ref, data: targetInfo, isSource: false);
-                },
+                          ref.read(targetInfoStateNotifierProvider.notifier).updateModelInfo(targetInfo.copyWith(
+                            name: sourceInfo.name,
+                            code: sourceInfo.code,
+                            currency: sourceInfo.currency,
+                            continentPos: sourceInfo.continentPos,
+                            countryPos: sourceInfo.countryPos,
+                            initialText: sourceInfo.initialText
+                          ));
+
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(right: 10),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(5)
+                          ),
+                          child: Icon(Icons.swap_vert_outlined, size: 36, color: Colors.black54),
+                        ),
+                      ),
+                    ),
+
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: SizedBox(
+                        width: 344,
+                        child: BuildTextFieldWidget(
+                          textEditingController: targetCurrentController,
+                          currencyDataModel: targetInfo,
+                          isReadonly: isReadonly,
+                          handleOnChange: (String cnt) {
+                            double? d = double.tryParse(cnt);
+                            if(d == null) {
+                              sourceCurrentController.text = '';
+                            }
+                            if(exchangeResponse.targetNumber == null || cnt.isEmpty) {
+                              return sourceCurrentController.text = '';
+                            }
+                            sourceCurrentController.text = (d! / exchangeResponse.targetNumber!).toStringAsFixed(AppConfig.fractionDigits);
+                          },
+                          handleOnTap: () {
+                            _handleShowPicker(context, ref, data: targetInfo, isSource: false);
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
 
               const SizedBox(height: 20,),
@@ -139,49 +196,6 @@ class QueryRatePage extends HookConsumerWidget {
               : MarketingTextWidget(exchangeResponseModel: exchangeResponse,),
             ]
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          elevation: 0,
-          splashColor: Colors.transparent,
-          highlightElevation: 0,
-          backgroundColor: Colors.transparent,
-          child: Icon(Icons.swap_vert_outlined, size: 48, color: Colors.grey.shade500),
-          onPressed: () {
-
-            // ref.read(sourceInfoProvider.notifier).state = sourceInfo.copyWith(
-            //   name: targetInfo.name,
-            //   code: targetInfo.code,
-            //   currency: targetInfo.currency,
-            //   continentPos: targetInfo.continentPos,
-            //   countryPos: targetInfo.countryPos
-            // );
-            ref.read(sourceInfoStateNotifierProvider.notifier).updateModelInfo(sourceInfo.copyWith(
-              name: targetInfo.name,
-              code: targetInfo.code,
-              currency: targetInfo.currency,
-              continentPos: targetInfo.continentPos,
-              countryPos: targetInfo.countryPos,
-              initialText: targetInfo.initialText
-            ));
-
-            // ref.read(targetInfoProvider.notifier).state = targetInfo.copyWith(
-            //   name: sourceInfo.name,
-            //   code: sourceInfo.code,
-            //   currency: sourceInfo.currency,
-            //   continentPos: sourceInfo.continentPos,
-            //   countryPos: sourceInfo.countryPos
-            // );
-
-            ref.read(targetInfoStateNotifierProvider.notifier).updateModelInfo(targetInfo.copyWith(
-              name: sourceInfo.name,
-              code: sourceInfo.code,
-              currency: sourceInfo.currency,
-              continentPos: sourceInfo.continentPos,
-              countryPos: sourceInfo.countryPos,
-              initialText: sourceInfo.initialText
-            ));
-
-          },
         ),
       ),
     );
