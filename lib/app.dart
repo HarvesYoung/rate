@@ -16,7 +16,6 @@ class App extends HookWidget {
   Widget build(BuildContext context) {
 
     final activeIndex = useState(0);
-    final pageController = usePageController();
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -26,16 +25,14 @@ class App extends HookWidget {
         highlightColor: Colors.transparent
       ),
       home: Scaffold(
-        body: PageView(
-          controller: pageController,
-          physics: const NeverScrollableScrollPhysics(),
+        body: IndexedStack(
+          index: activeIndex.value,
           children: _pages,
         ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: activeIndex.value,
           onTap: (int pos) {
             activeIndex.value = pos;
-            pageController.jumpToPage(pos);
           },
           selectedFontSize: 12,
           unselectedFontSize: 12,
