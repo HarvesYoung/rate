@@ -86,6 +86,50 @@ class MyPage extends StatelessWidget {
             ),
             const SizedBox(height: 10,),
             Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.grey.shade100,
+                    width: 1
+                  )
+                )
+              ),
+              child: ListTile(
+                leading: const Icon(Icons.feedback),
+                title: const Text('反馈', style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black87
+                ),),
+                dense: true,
+                trailing: const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black26),
+                onTap: () => Navigator.of(context).pushNamed('feedback')
+                // contentPadding: EdgeInsets.symmetric(vertical: 6),
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.grey.shade100,
+                    width: 1
+                  )
+                )
+              ),
+              child: ListTile(
+                leading: const Icon(Icons.storage),
+                title: const Text('储存', style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black87
+                ),),
+                dense: true,
+                trailing: const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black26),
+                onTap: () => _showAboutRate(context),
+                // contentPadding: EdgeInsets.symmetric(vertical: 6),
+              ),
+            ),
+            Container(
               color: Colors.white,
               child: ListTile(
                 leading: const Icon(Icons.info),
