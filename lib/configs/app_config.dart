@@ -10,6 +10,7 @@ class AppConfig {
 
   static const formattedDateTime = "MM-dd HH:mm";
 
-
   static const initialFormatter = 1.0;
+
+  static const textFieldMaxLength = 8;
 }
