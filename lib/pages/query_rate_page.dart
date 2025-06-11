@@ -21,8 +21,6 @@ class QueryRatePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    final GlobalKey _listViewKey = GlobalKey();
-
     final sourceInfo = ref.watch(sourceInfoStateNotifierProvider);
     final targetInfo = ref.watch(targetInfoStateNotifierProvider);
 
@@ -80,7 +78,6 @@ class QueryRatePage extends HookConsumerWidget {
         body: Container(
           padding: EdgeInsets.all(10),
           child: ListView(
-            key: _listViewKey,
             children: [
               SizedBox(
                 height: 120,
@@ -95,7 +92,6 @@ class QueryRatePage extends HookConsumerWidget {
                           currencyDataModel: sourceInfo,
                           isReadonly: isReadonly,
                           handleOnChange: (String cnt) {
-                            debugPrint('sourceInfo String = $cnt');
                             double? d = double.tryParse(cnt);
                             if(d == null) {
                               return targetCurrentController.text = '';
@@ -124,7 +120,6 @@ class QueryRatePage extends HookConsumerWidget {
                       alignment: Alignment.centerRight,
                       child: GestureDetector(
                         onTap: () {
-                          // debugPrint('_listViewKey.size = ${_listViewKey.currentContext?.size?.width}');
                           ref.read(sourceInfoStateNotifierProvider.notifier).updateModelInfo(sourceInfo.copyWith(
                             name: targetInfo.name,
                             code: targetInfo.code,
@@ -241,6 +236,7 @@ class QueryRatePage extends HookConsumerWidget {
           ref.watch(targetInfoStateNotifierProvider).currency
       );
 
+      ref.read(targetInfoStateNotifierProvider.notifier).setInitialText(resp.targetNumber);
       ref.read(exchangeResponseStateProvider.notifier).state = resp;
     } catch (e) {
       Fluttertoast.showToast(

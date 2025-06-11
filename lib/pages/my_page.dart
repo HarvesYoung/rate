@@ -19,7 +19,9 @@ class MyPage extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.dark_mode_outlined, color: Colors.black54),
-            onPressed: null,
+            onPressed: () {
+              debugPrint('mode switch');
+            },
           ),
           IconButton(
             icon: Icon(Icons.notifications_none_outlined, color: Colors.black54,),
@@ -34,9 +36,14 @@ class MyPage extends StatelessWidget {
         ),
         child: ListView(
           children: [
-            Container(
-              height: 100,
+            UserAccountsDrawerHeader(
+              // currentAccountPicture: ,
+              accountName: Text('harves'),
+              accountEmail: Text('harvesyang@gmail.com'),
             ),
+            // Container(
+            //   height: 100,
+            // ),
             Container(
               color: Colors.white,
               child: ListTile(
@@ -88,7 +95,7 @@ class MyPage extends StatelessWidget {
                 ),),
                 dense: true,
                 trailing: const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black26),
-                onTap: () => debugPrint('language'),
+                onTap: () => _showAboutRate(context),
                 // contentPadding: EdgeInsets.symmetric(vertical: 6),
               ),
             )
@@ -129,4 +136,39 @@ class MyPage extends StatelessWidget {
       }
     );
   } // _showLanguageSelection() end
+
+
+  void _showAboutRate(BuildContext context) {
+    // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    showDialog(
+        context: context,
+        builder: (_) => AboutDialog(
+          applicationIcon: FlutterLogo(),
+          applicationVersion: 'v0.0.1',
+          applicationName: 'Exchange Rate',
+          applicationLegalese: 'Copyright© 2025-2030 Harves',
+          children: <Widget>[
+
+            Container(
+              margin: EdgeInsets.only(top: 10),
+              alignment: Alignment.center,
+              child: Text(
+                'Exchange Rate Service',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  shadows: [
+                    Shadow(
+                      color: Colors.blue,
+                      offset: Offset(.5, .5),
+                      blurRadius: 3
+                    )
+                  ]
+                ),
+              ),
+            )
+          ],
+        )
+    );
+  } // _showAboutRate() end
 }
