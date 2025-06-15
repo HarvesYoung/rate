@@ -4,5 +4,5 @@ import 'package:rate/pages/feedback_page.dart';
 
 final Map<String, WidgetBuilder> customRoutesConfig = {
   '/': (_) => const HomePage(),
-  'feedback': (_) => const FeedbackPage(),
+  'feedback': (_) => FeedbackPage(),
 };

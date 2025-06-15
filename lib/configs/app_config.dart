@@ -13,4 +13,6 @@ class AppConfig {
   static const initialFormatter = 1.0;
 
   static const textFieldMaxLength = 8;
+
+  static const feedbackImageLength = 3;
 }
