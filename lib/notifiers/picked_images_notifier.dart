@@ -25,7 +25,7 @@ class PickedImagesNotifier extends StateNotifier<List<XFile>> {
   } // deletePickedImage() end
 
 
-  void clearPickedImage() {
+  void clearPickedImages() {
     state = [];
   } // clearPickedImage() end
 }

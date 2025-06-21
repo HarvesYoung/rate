@@ -51,7 +51,7 @@ class QueryRatePage extends HookConsumerWidget {
             gravity: ToastGravity.CENTER,
             backgroundColor: Colors.red.shade50,
             textColor: Colors.red,
-            timeInSecForIosWeb: 30,
+            timeInSecForIosWeb: 1,
             webPosition: 'center',
             fontSize: 12.0
           );
@@ -244,7 +244,7 @@ class QueryRatePage extends HookConsumerWidget {
         gravity: ToastGravity.CENTER,
         backgroundColor: Colors.red.shade50,
         textColor: Colors.red,
-        timeInSecForIosWeb: 3,
+        timeInSecForIosWeb: 1,
         webPosition: 'center',
         fontSize: 12.0
       );

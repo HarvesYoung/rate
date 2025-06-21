@@ -1,11 +1,16 @@
 import 'dart:io';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rate/configs/app_config.dart';
-import 'package:rate/providers/picked_image_notifier_provider.dart';
+import 'package:rate/providers/providers.dart';
+import 'package:rate/services/firebase_storage_service.dart';
+import 'package:rate/utils/functions.dart';
+import 'package:rate/widgets/widgets.dart';
 
 class FeedbackPage extends HookConsumerWidget {
   FeedbackPage({super.key});
@@ -16,6 +21,7 @@ class FeedbackPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
 
     final isSubmitInfoComplete = useState(false);
+    final isReadonly = useState(false);
     final textController = useTextEditingController();
     final pickedImages = ref.watch(PickedImageNotifierProvider);
 
@@ -35,7 +41,7 @@ class FeedbackPage extends HookConsumerWidget {
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () async {
             if(pickedImages.isNotEmpty) {
-              await handleGoBack(context);
+              await _handleGoBack(context);
             }
             if(!context.mounted) return;
             Navigator.of(context).pop();
@@ -80,6 +86,7 @@ class FeedbackPage extends HookConsumerWidget {
                 borderRadius: BorderRadius.circular(5)
               ),
               child: TextFormField(
+                readOnly: isReadonly.value,
                 controller: textController,
                 maxLines: 5,
                 decoration: InputDecoration(
@@ -109,9 +116,7 @@ class FeedbackPage extends HookConsumerWidget {
                 children: [
                   ...pickedImages.map((img) {
                     return GestureDetector(
-                      onTap: () {
-                        _showImageOption(context, ref, img);
-                      },
+                      onTap: () => isReadonly.value ? null : _showImageOption(context, ref, img),
                       child: Padding(
                         padding: const EdgeInsets.only(right: 8),
                         child: Image.file(
@@ -129,6 +134,7 @@ class FeedbackPage extends HookConsumerWidget {
                     width: 80,
                     child: GestureDetector(
                       onTap: () async {
+                        if(isReadonly.value) return;
                         final XFile? image = await picker.pickImage(source: ImageSource.gallery);
                         if(image == null) return;
                         ref.read(PickedImageNotifierProvider.notifier).addPickedImage(image);
@@ -151,8 +157,44 @@ class FeedbackPage extends HookConsumerWidget {
             const SizedBox(height: 50,),
 
             OutlinedButton(
-              // todo submit
-              onPressed: null,
+              // handle submit
+              onPressed: !isSubmitInfoComplete.value ? null : () async {
+                // Fluttertoast.showToast(
+                //   msg: '上传成功',
+                //   gravity: ToastGravity.BOTTOM,
+                //   backgroundColor: Colors.black87,
+                //   textColor: Colors.white,
+                //   timeInSecForIosWeb: 2,
+                //   webPosition: 'center',
+                //   fontSize: 12.0
+                // );
+
+                try {
+                  isReadonly.value = true;
+                  await _handleOnSubmit(ref, pickedImages);
+
+                  // clear textForm's content
+                  textController.text = '';
+
+                  // clear all the picked images
+                  ref.read(PickedImageNotifierProvider.notifier).clearPickedImages();
+
+                } on FirebaseException catch (e) {
+                  Fluttertoast.showToast(
+                    msg: '${e.code}: ${e.message}',
+                    gravity: ToastGravity.CENTER,
+                    backgroundColor: Colors.red.shade50,
+                    textColor: Colors.red,
+                    timeInSecForIosWeb: 2,
+                    webPosition: 'center',
+                    fontSize: 12.0
+                  );
+                } finally {
+                  ref.read(uploadProgressProvider.notifier).reset();
+                  debugPrint('isReadonly = ${isReadonly.value}');
+                  isReadonly.value = false;
+                }
+              },
               style: OutlinedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
@@ -160,7 +202,9 @@ class FeedbackPage extends HookConsumerWidget {
                 side: BorderSide.none,
                 backgroundColor: isSubmitInfoComplete.value ? Colors.redAccent : Colors.grey.shade200
               ),
-              child: Text('Submit', style: isSubmitInfoComplete.value ? TextStyle(color: Colors.white) : null),
+              child: isReadonly.value
+                ? CustomProgressPercentWidget()
+                : Text('Submit', style: isSubmitInfoComplete.value ? TextStyle(color: Colors.white) : null),
             )
           ],
         )
@@ -236,7 +280,7 @@ class FeedbackPage extends HookConsumerWidget {
   } // _showImageOption() end
 
 
-  Future<bool> handleGoBack(BuildContext context) async {
+  Future<bool> _handleGoBack(BuildContext context) async {
     return await showDialog(
       context: context,
       builder: (_) {
@@ -257,4 +301,64 @@ class FeedbackPage extends HookConsumerWidget {
       }
     );
   } // handleGoBack() end
+
+  /// handle the Submit button
+  /// - @param [WidgetRef] ref
+  /// - @param [List] fileList
+  /// - @return void
+  Future<void> _handleOnSubmit(WidgetRef ref, List<XFile> fileList) async {
+    try {
+      if (fileList.isNotEmpty) {
+        final storage = FirebaseStorageService();
+        await Future.wait(fileList.map((file) async {
+             final compressedFile = await compressImage(File(file.path));
+             await storage.uploadFile(file: compressedFile, ref: ref);
+          }
+        ));
+      }
+    } on FirebaseException {
+      rethrow;
+    }
+  } // handleOnSubmit() end
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

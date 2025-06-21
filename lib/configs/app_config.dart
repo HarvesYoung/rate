@@ -15,4 +15,7 @@ class AppConfig {
   static const textFieldMaxLength = 8;
 
   static const feedbackImageLength = 3;
+
+  /// - @path '我'/'反馈'
+  static const percentFractionDigits = 0;
 }
