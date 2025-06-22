@@ -1,0 +1,299 @@
+{
+  "project_info": {
+    "project_number": "133641593979",
+    "firebase_url": "https://harves-young-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "harves-young",
+    "storage_bucket": "harves-young.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133641593979:android:00d42554e0007a4533aede",
+        "android_client_info": {
+          "package_name": "com.example.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "133641593979-3bi1knil06hh0rqntgv33s586o5d99ep.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBanHQ-uUmJlFYyMw8OqgaaBmn89Tf5PgQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "133641593979-3bi1knil06hh0rqntgv33s586o5d99ep.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "133641593979-0qjcfk4vft9g0av6sfaevfovq0534nrk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.eBook"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133641593979:android:085b5398fff3895933aede",
+        "android_client_info": {
+          "package_name": "com.example.flutter_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "133641593979-3bi1knil06hh0rqntgv33s586o5d99ep.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBanHQ-uUmJlFYyMw8OqgaaBmn89Tf5PgQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "133641593979-3bi1knil06hh0rqntgv33s586o5d99ep.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "133641593979-0qjcfk4vft9g0av6sfaevfovq0534nrk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.eBook"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133641593979:android:59d3a9b9ae78ef7533aede",
+        "android_client_info": {
+          "package_name": "com.example.flutter_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "133641593979-3bi1knil06hh0rqntgv33s586o5d99ep.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBanHQ-uUmJlFYyMw8OqgaaBmn89Tf5PgQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "133641593979-3bi1knil06hh0rqntgv33s586o5d99ep.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "133641593979-0qjcfk4vft9g0av6sfaevfovq0534nrk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.eBook"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133641593979:android:cfda80294d9e477233aede",
+        "android_client_info": {
+          "package_name": "com.example.my_widget"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "133641593979-3bi1knil06hh0rqntgv33s586o5d99ep.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBanHQ-uUmJlFYyMw8OqgaaBmn89Tf5PgQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "133641593979-3bi1knil06hh0rqntgv33s586o5d99ep.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "133641593979-0qjcfk4vft9g0av6sfaevfovq0534nrk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.eBook"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133641593979:android:eb60ed806f48d1e033aede",
+        "android_client_info": {
+          "package_name": "com.example.my_widget2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "133641593979-3bi1knil06hh0rqntgv33s586o5d99ep.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBanHQ-uUmJlFYyMw8OqgaaBmn89Tf5PgQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "133641593979-3bi1knil06hh0rqntgv33s586o5d99ep.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "133641593979-0qjcfk4vft9g0av6sfaevfovq0534nrk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.eBook"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133641593979:android:0578325d58d6f57f33aede",
+        "android_client_info": {
+          "package_name": "com.example.myapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "133641593979-3bi1knil06hh0rqntgv33s586o5d99ep.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBanHQ-uUmJlFYyMw8OqgaaBmn89Tf5PgQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "133641593979-3bi1knil06hh0rqntgv33s586o5d99ep.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "133641593979-0qjcfk4vft9g0av6sfaevfovq0534nrk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.eBook"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133641593979:android:14f957e5c1f5321433aede",
+        "android_client_info": {
+          "package_name": "com.example.rate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "133641593979-3bi1knil06hh0rqntgv33s586o5d99ep.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBanHQ-uUmJlFYyMw8OqgaaBmn89Tf5PgQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "133641593979-3bi1knil06hh0rqntgv33s586o5d99ep.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "133641593979-0qjcfk4vft9g0av6sfaevfovq0534nrk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.eBook"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133641593979:android:acbcda0b3940829d33aede",
+        "android_client_info": {
+          "package_name": "com.example.rate_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "133641593979-3bi1knil06hh0rqntgv33s586o5d99ep.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBanHQ-uUmJlFYyMw8OqgaaBmn89Tf5PgQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "133641593979-3bi1knil06hh0rqntgv33s586o5d99ep.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "133641593979-0qjcfk4vft9g0av6sfaevfovq0534nrk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.eBook"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

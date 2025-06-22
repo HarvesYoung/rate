@@ -21,7 +21,13 @@ class CustomProgressPercentWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final percent = ref.watch(uploadProgressProvider);
+    final progress = ref.watch(uploadProgressProvider);
+    final length = progress.length;
+    double percent = 0;
+
+    if(length > 0) {
+      percent = progress.reduce((v, e) => v + e) / length;
+    }
 
     return SizedBox(
       width: boxWidth,

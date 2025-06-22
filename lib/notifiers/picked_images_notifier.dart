@@ -1,27 +1,27 @@
 
+import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:image_picker/image_picker.dart';
 
-class PickedImagesNotifier extends StateNotifier<List<XFile>> {
+class PickedImagesNotifier extends StateNotifier<List<File>> {
   PickedImagesNotifier():super([]);
 
-  List<XFile> pickedImages = [];
+  List<File> pickedImages = [];
 
-  void addPickedImage(XFile imageXFile) {
-    state = [...state, imageXFile];
+  void addPickedImage(File imageFile) {
+    state = [...state, imageFile];
   } // addPickedImage() end
 
-  void updatePickedImage(XFile oldImageXFile, XFile imageXFile) {
-     int index = state.indexWhere((img) => img.path == oldImageXFile.path);
+  void updatePickedImage(File oldImageFile, File imageFile) {
+     int index = state.indexWhere((img) => img.path == oldImageFile.path);
 
     final newState = [...state];
-    newState[index] = imageXFile;
+    newState[index] = imageFile;
     state = newState;
   } // updatePickedImage() end
 
 
-  void deletePickedImage(XFile imageXFile) {
-    state = state.where((img) => img.path != imageXFile.path).toList();
+  void deletePickedImage(File imageFile) {
+    state = state.where((img) => img.path != imageFile.path).toList();
   } // deletePickedImage() end
 
 

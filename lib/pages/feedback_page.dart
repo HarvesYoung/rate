@@ -23,7 +23,7 @@ class FeedbackPage extends HookConsumerWidget {
     final isSubmitInfoComplete = useState(false);
     final isReadonly = useState(false);
     final textController = useTextEditingController();
-    final pickedImages = ref.watch(PickedImageNotifierProvider);
+    final pickedImages = ref.watch(pickedImageNotifierProvider);
 
     useEffect((){
       void listener() {
@@ -40,10 +40,15 @@ class FeedbackPage extends HookConsumerWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () async {
-            if(pickedImages.isNotEmpty) {
-              await _handleGoBack(context);
+            if(pickedImages.isEmpty) {
+              return Navigator.of(context).pop();
             }
+
+            final shouldExit = await _handleGoBack(context);
+            if(!shouldExit) return;
             if(!context.mounted) return;
+            // clear all the picked images
+            ref.read(pickedImageNotifierProvider.notifier).clearPickedImages();
             Navigator.of(context).pop();
           }
         ),
@@ -137,7 +142,10 @@ class FeedbackPage extends HookConsumerWidget {
                         if(isReadonly.value) return;
                         final XFile? image = await picker.pickImage(source: ImageSource.gallery);
                         if(image == null) return;
-                        ref.read(PickedImageNotifierProvider.notifier).addPickedImage(image);
+
+                        final compressedFile = await compressImage(File(image.path));
+                        ref.read(pickedImageNotifierProvider.notifier).addPickedImage(compressedFile);
+                        ref.read(uploadProgressProvider.notifier).addInitProgress();
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -176,8 +184,10 @@ class FeedbackPage extends HookConsumerWidget {
                   // clear textForm's content
                   textController.text = '';
 
+                  isReadonly.value = false;
+
                   // clear all the picked images
-                  ref.read(PickedImageNotifierProvider.notifier).clearPickedImages();
+                  ref.read(pickedImageNotifierProvider.notifier).clearPickedImages();
 
                 } on FirebaseException catch (e) {
                   Fluttertoast.showToast(
@@ -191,8 +201,6 @@ class FeedbackPage extends HookConsumerWidget {
                   );
                 } finally {
                   ref.read(uploadProgressProvider.notifier).reset();
-                  debugPrint('isReadonly = ${isReadonly.value}');
-                  isReadonly.value = false;
                 }
               },
               style: OutlinedButton.styleFrom(
@@ -212,7 +220,7 @@ class FeedbackPage extends HookConsumerWidget {
     );
   } // build() end
 
-  void _showImageOption(BuildContext context, WidgetRef ref, XFile image) {
+  void _showImageOption(BuildContext context, WidgetRef ref, File image) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.grey.shade200,
@@ -246,7 +254,8 @@ class FeedbackPage extends HookConsumerWidget {
 
                     final XFile? newPickedImage = await picker.pickImage(source: ImageSource.gallery);
                     if(newPickedImage == null) return;
-                    ref.read(PickedImageNotifierProvider.notifier).updatePickedImage(image, newPickedImage);
+                    final compressedFile = await compressImage(File(newPickedImage.path));
+                    ref.read(pickedImageNotifierProvider.notifier).updatePickedImage(image, compressedFile);
                   },
                 ),
               ),
@@ -256,7 +265,8 @@ class FeedbackPage extends HookConsumerWidget {
                   title: Center(child: const Text('删除', style: TextStyle(color: Colors.red,fontSize: 14,),),),
                   onTap: () {
                     Navigator.pop(context);
-                    ref.read(PickedImageNotifierProvider.notifier).deletePickedImage(image);
+                    ref.read(pickedImageNotifierProvider.notifier).deletePickedImage(image);
+                    ref.read(uploadProgressProvider.notifier).removeLastProgress();
                   },
                 ),
               ),
@@ -306,15 +316,11 @@ class FeedbackPage extends HookConsumerWidget {
   /// - @param [WidgetRef] ref
   /// - @param [List] fileList
   /// - @return void
-  Future<void> _handleOnSubmit(WidgetRef ref, List<XFile> fileList) async {
+  Future<void> _handleOnSubmit(WidgetRef ref, List<File> fileList) async {
     try {
       if (fileList.isNotEmpty) {
         final storage = FirebaseStorageService();
-        await Future.wait(fileList.map((file) async {
-             final compressedFile = await compressImage(File(file.path));
-             await storage.uploadFile(file: compressedFile, ref: ref);
-          }
-        ));
+        await storage.uploadMultiImages(files: fileList, ref: ref);
       }
     } on FirebaseException {
       rethrow;

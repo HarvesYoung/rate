@@ -1,6 +1,5 @@
 
 import 'dart:io';
-import 'dart:math';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,12 +17,11 @@ class FirebaseStorageService {
 
   Future<String> uploadFile({
     required File file,
-    required WidgetRef ref
+    required WidgetRef ref,
+    int index = 0
   }) async {
     try {
-      debugPrint('size = ${file.lengthSync() / pow(1024, 2)} MBs');
       final fileName = generateRandomImageName();
-      debugPrint('file.hashCode = ${file.hashCode}');
       final storageRef = _storage.ref().child(fileName);
 
       final uploadTask = storageRef.putFile(file);
@@ -37,8 +35,8 @@ class FirebaseStorageService {
                 final raw = taskSnapshot.bytesTransferred / taskSnapshot.totalBytes;
                 progress = truncateToTwoDecimalPlaces(raw);
               }
-              debugPrint("Upload is $progress % complete");
-              ref.read(uploadProgressProvider.notifier).update(progress);
+              debugPrint("第${index + 1} Upload is $progress % complete");
+              ref.read(uploadProgressProvider.notifier).update(index, progress);
               break;
 
             case TaskState.paused:
@@ -55,7 +53,7 @@ class FirebaseStorageService {
               break;
 
             case TaskState.success:
-              ref.read(uploadProgressProvider.notifier).update(1);
+              ref.read(uploadProgressProvider.notifier).update(index, 100);
               break;
           }
         },
@@ -73,7 +71,6 @@ class FirebaseStorageService {
       }); // waiting until upload task complete
       
       final downloadUrl = await snapshot.ref.getDownloadURL();
-      debugPrint('downloadUrl = $downloadUrl}');
       return downloadUrl;
     } on FirebaseException {
       rethrow;
@@ -83,11 +80,26 @@ class FirebaseStorageService {
     }
   } // uploadFile() end
 
+  Future<List<String>> uploadMultiImages({
+    required List<File> files,
+    required WidgetRef ref
+  }) async {
+    List<String> downloadUrls = [];
+    for(var entry in files.asMap().entries) {
+      final int index = entry.key;
+      final File file = entry.value;
+
+      final downloadURL = await uploadFile(file: file, ref: ref, index: index);
+      downloadUrls.add(downloadURL);
+    } // for{} end
+    return downloadUrls;
+  } // uploadMultiImages() end
+
   /// - 截断保留两位小数
   /// - @param [double] data source
   /// - @return [double]
   double truncateToTwoDecimalPlaces(double value) {
-    return (value * 100).truncateToDouble() / 100;
+    return (value * 10000).truncateToDouble() / 100;
   } // truncateToTwoDecimalPlaces() end
 
 }

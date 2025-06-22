@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rate/pages/feedback_page.dart';
 import 'package:rate/utils/languages.dart';
 
 class MyPage extends StatelessWidget {
@@ -103,7 +104,11 @@ class MyPage extends StatelessWidget {
                 ),),
                 dense: true,
                 trailing: const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black26),
-                onTap: () => Navigator.of(context).pushNamed('feedback')
+                onTap: () => Navigator.of(context).push(
+                  NoSwipeCupertinoPageRoute(
+                    builder: (_) => FeedbackPage()
+                  )
+                )
                 // contentPadding: EdgeInsets.symmetric(vertical: 6),
               ),
             ),
@@ -216,4 +221,13 @@ class MyPage extends StatelessWidget {
         )
     );
   } // _showAboutRate() end
+}
+
+class NoSwipeCupertinoPageRoute<T> extends CupertinoPageRoute<T> {
+  NoSwipeCupertinoPageRoute({
+    required WidgetBuilder builder
+  }) : super(builder: builder);
+
+  @override
+  bool get popGestureEnabled => false;
 }

@@ -1,12 +1,25 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class UploadProgressNotifier extends StateNotifier<double> {
-  UploadProgressNotifier():super(0);
+class UploadProgressNotifier extends StateNotifier<List<double>> {
+  UploadProgressNotifier():super([]);
 
-  void update(double value) => state = value;
+  void addInitProgress() {
+    state = [...state, 0];
+  }
 
-  // 下一行代码是否在StateNotifier类中 是正确的？如果是，外部如何访问？
-  // double get percent => state + 0.1; // 不推荐
+  void update(int pos, double value)  {
+    if(pos >= state.length) return;
+    final newState = [...state];
+    newState[pos] = value;
+    state = newState;
+  }
 
-  void reset() => state = 0;
+  void removeLastProgress() {
+    if(state.isNotEmpty) {
+      state = state.sublist(0, state.length - 1);
+    }
+    state.removeLast();
+  }
+
+  void reset() => state = [];
 }
