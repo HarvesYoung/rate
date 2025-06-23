@@ -18,4 +18,6 @@ class AppConfig {
 
   /// - @path '我'/'反馈'
   static const percentFractionDigits = 0;
+
+  static const feedbackCollectionLabel = 'feedback';
 }

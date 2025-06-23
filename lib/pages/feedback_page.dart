@@ -8,6 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rate/configs/app_config.dart';
 import 'package:rate/providers/providers.dart';
+import 'package:rate/services/cloud_firestore_service.dart';
 import 'package:rate/services/firebase_storage_service.dart';
 import 'package:rate/utils/functions.dart';
 import 'package:rate/widgets/widgets.dart';
@@ -167,19 +168,20 @@ class FeedbackPage extends HookConsumerWidget {
             OutlinedButton(
               // handle submit
               onPressed: !isSubmitInfoComplete.value ? null : () async {
-                // Fluttertoast.showToast(
-                //   msg: '上传成功',
-                //   gravity: ToastGravity.BOTTOM,
-                //   backgroundColor: Colors.black87,
-                //   textColor: Colors.white,
-                //   timeInSecForIosWeb: 2,
-                //   webPosition: 'center',
-                //   fontSize: 12.0
-                // );
-
                 try {
                   isReadonly.value = true;
-                  await _handleOnSubmit(ref, pickedImages);
+                  // await _handleOnSubmit(ref, pickedImages);
+
+                  List<String> downloadUrls = [];
+
+                  // upload picked images
+                  if(pickedImages.isNotEmpty) {
+                    final storage = FirebaseStorageService();
+                    downloadUrls = await storage.uploadMultiImages(files: pickedImages, ref: ref);
+                  }
+
+                  final db = CloudFirestoreService();
+                  await db.addFeedback({'message':  textController.text, 'downloadUrls': downloadUrls});
 
                   // clear textForm's content
                   textController.text = '';
@@ -189,6 +191,15 @@ class FeedbackPage extends HookConsumerWidget {
                   // clear all the picked images
                   ref.read(pickedImageNotifierProvider.notifier).clearPickedImages();
 
+                  Fluttertoast.showToast(
+                    msg: '提交成功',
+                    gravity: ToastGravity.BOTTOM,
+                    backgroundColor: Colors.black87,
+                    textColor: Colors.white,
+                    timeInSecForIosWeb: 2,
+                    webPosition: 'center',
+                    fontSize: 12.0
+                  );
                 } on FirebaseException catch (e) {
                   Fluttertoast.showToast(
                     msg: '${e.code}: ${e.message}',
@@ -311,21 +322,6 @@ class FeedbackPage extends HookConsumerWidget {
       }
     );
   } // handleGoBack() end
-
-  /// handle the Submit button
-  /// - @param [WidgetRef] ref
-  /// - @param [List] fileList
-  /// - @return void
-  Future<void> _handleOnSubmit(WidgetRef ref, List<File> fileList) async {
-    try {
-      if (fileList.isNotEmpty) {
-        final storage = FirebaseStorageService();
-        await storage.uploadMultiImages(files: fileList, ref: ref);
-      }
-    } on FirebaseException {
-      rethrow;
-    }
-  } // handleOnSubmit() end
 }
 
 
