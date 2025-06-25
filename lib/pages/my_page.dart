@@ -130,7 +130,7 @@ class MyPage extends StatelessWidget {
                 ),),
                 dense: true,
                 trailing: const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black26),
-                onTap: () => _showAboutRate(context),
+                onTap: () => Navigator.of(context).pushNamed('storage'),
                 // contentPadding: EdgeInsets.symmetric(vertical: 6),
               ),
             ),
