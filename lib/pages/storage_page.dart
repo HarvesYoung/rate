@@ -230,6 +230,16 @@ class StoragePageState extends State<StoragePage> {
     return size;
   } // _getDirectorySize() end
 
+  Future<void> _deleteDirectory(Directory dir) async {
+    if(await dir.exists()) {
+      try {
+        await dir.delete(recursive: true);
+      } catch (e) {
+        rethrow;
+      }
+    }
+  } // _deleteDirectory() end
+
 
   Future<void> _loadAppStoreSize() async {
     try {
@@ -259,7 +269,40 @@ class StoragePageState extends State<StoragePage> {
     return '${mb.toStringAsFixed(1)} MB';
   } // _formatSize() end
 
+
   Future<void> _clearCache() async {
+    showDialog(
+      context: context,
+      barrierColor: Colors.transparent,
+      barrierDismissible: true,
+      builder: (_) {
+        return Dialog(
+          backgroundColor: Colors.grey.shade500,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: SizedBox(
+            height: 140,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const CircularProgressIndicator(
+                  backgroundColor: Colors.red,
+                  color: Colors.blue,
+                ),
+                const SizedBox(height: 20,),
+                Text('清理中~~', style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.white
+                ),)
+              ],
+            ),
+          ),
+        );
+      }
+    );
+
     try {
       // find the temporary folder
       final tempDir = await getTemporaryDirectory();
@@ -272,10 +315,15 @@ class StoragePageState extends State<StoragePage> {
       setState(() {
         _hasCache = false;
       });
+
       await _getCacheSize();
+
+      if(!mounted) return;
+      Navigator.of(context, rootNavigator: true).pop();
     } catch (e) {
+      if(!mounted) return;
       Fluttertoast.showToast(
-        msg: "读取失败, 请稍后再试~~",
+        msg: "清理失败, 请稍后再试~~",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 3,
@@ -287,29 +335,16 @@ class StoragePageState extends State<StoragePage> {
   } // _clearCache() end
 
 
-  Future<void> _deleteDirectory(Directory dir) async {
-    if(await dir.exists()) {
-      try {
-        await dir.delete(recursive: true);
-      } catch (e) {
-        rethrow;
-      }
-    }
-  } // _deleteDirectory() end
-
   Future<int> _getCacheSize() async {
     try {
       final Directory tempDir = await getTemporaryDirectory();
       final size = await _getDirectorySize(tempDir);
-      debugPrint('size = $size');
-      if(size > 0) {
         setState(() {
-          _hasCache = true;
+          if(size > 0) {
+            _hasCache = true;
+          }
+          _cacheSize = size;
         });
-      }
-      setState(() {
-        _cacheSize = size;
-      });
       return size;
     } catch (e) {
       Fluttertoast.showToast(

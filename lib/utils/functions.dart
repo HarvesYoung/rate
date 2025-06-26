@@ -1,6 +1,7 @@
 
 import 'dart:io';
 import 'dart:math';
+import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 /// - compress the image to be uploaded
@@ -23,3 +24,16 @@ String generateRandomImageName() {
   final randomId = Random().nextInt(100000);
   return 'feedback_$timestamp\_$randomId.jpg';
 } // generateImageName() end
+
+
+/// Print the line number of current method when called
+/// - @params [String] message
+/// - @return void
+void debugPrintWithLocation(String message) {
+  final trace = StackTrace.current;
+  final traceString = trace.toString().split("\n")[1];
+  final indexOfFileName = traceString.indexOf(RegExp(r'[A-Za-z]+\.dart'));
+  final location = traceString.substring(indexOfFileName).replaceAll(')', '');
+
+  debugPrint('[$location] $message');
+} // debugPrintWithLocation() end

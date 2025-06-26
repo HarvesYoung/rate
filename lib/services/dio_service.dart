@@ -41,10 +41,10 @@ class DioService {
         onResponse: (response, handler) {
           final resp = response.data;
           if(!resp['success']) {
-            debugPrint('---------------success false---------------');
+            debugPrint('---------------resp[\'success\'] = false---------------');
             final exchangeErrorModel = ExchangeErrorModel.fromJson(resp);
             debugPrint("code: ${exchangeErrorModel.error.code}; info: ${exchangeErrorModel.error.info}");
-            debugPrint('---------------success false end---------------');
+            debugPrint('---------------resp[\'success\'] = false end---------------');
             throw CustomDioException(
               requestOptions: response.requestOptions
             );
