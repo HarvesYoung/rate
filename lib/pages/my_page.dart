@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rate/l10n/generated/app_localizations.dart';
 import 'package:rate/pages/feedback_page.dart';
 import 'package:rate/utils/languages.dart';
 
@@ -10,7 +11,7 @@ class MyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // system language
+    // system language code
     final locale = PlatformDispatcher.instance.locale;
     // final currentLanguage = useState(locale.languageCode);
 
@@ -49,10 +50,13 @@ class MyPage extends StatelessWidget {
               color: Colors.white,
               child: ListTile(
                 leading: const Icon(Icons.notifications),
-                title: const Text('通知设定', style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.black87
-                ),),
+                title: Text(
+                  AppLocalizations.of(context)!.notificationTitle,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black87
+                  ),
+                ),
                 dense: true,
                 trailing: Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black26),
                 onTap: () => debugPrint('language'),
@@ -64,7 +68,7 @@ class MyPage extends StatelessWidget {
               color: Colors.white,
               child: ListTile(
                 leading: const Icon(Icons.language),
-                title: const Text('语言', style: TextStyle(
+                title: Text(AppLocalizations.of(context)!.language, style: TextStyle(
                   fontSize: 14,
                   color: Colors.black87
                 ),),
@@ -157,6 +161,7 @@ class MyPage extends StatelessWidget {
   void _showLanguageSelection(BuildContext context) {
     showCupertinoDialog(
       context: context,
+      barrierDismissible: true,
       builder: (_) {
         return Container(
           alignment: Alignment.bottomCenter,
@@ -225,8 +230,13 @@ class MyPage extends StatelessWidget {
 
 class NoSwipeCupertinoPageRoute<T> extends CupertinoPageRoute<T> {
   NoSwipeCupertinoPageRoute({
-    required WidgetBuilder builder
-  }) : super(builder: builder);
+    required super.builder
+  });
+
+  // not good
+  // NoSwipeCupertinoPageRoute({
+  //   required WidgetBuilder builder
+  // }) : super(builder: builder);
 
   @override
   bool get popGestureEnabled => false;

@@ -42,9 +42,11 @@ class QueryRatePage extends HookConsumerWidget {
           // ref.read(targetInfoProvider.notifier).state.initialText = resp.targetNumber;
           /// 从final targetInfoProvider = StateProvider<CurrencyDataModel>()
           /// 改为final targetInfoProvider = StateNotifierProvider<CurrencyDataNotifier, CurrencyDataModel>()
+          // if(!context.mounted) return;
           ref.read(targetInfoStateNotifierProvider.notifier).setInitialText(resp.targetNumber);
           ref.read(sourceInfoStateNotifierProvider.notifier).setInitialText(AppConfig.initialFormatter);
           ref.read(exchangeResponseStateProvider.notifier).state = resp;
+          ref.read(isReadonlyStateProvider.notifier).state = false;
         } catch(e) {
           Fluttertoast.showToast(
             msg: e.toString(),
@@ -55,8 +57,6 @@ class QueryRatePage extends HookConsumerWidget {
             webPosition: 'center',
             fontSize: 12.0
           );
-        } finally {
-          ref.read(isReadonlyStateProvider.notifier).state = false;
         }
       });
       return null;

@@ -20,4 +20,6 @@ class AppConfig {
   static const percentFractionDigits = 0;
 
   static const feedbackCollectionLabel = 'feedback';
+
+  static const savedLocaleCodeKey = 'userLocaleCode';
 }
