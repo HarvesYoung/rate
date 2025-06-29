@@ -22,4 +22,5 @@ class AppConfig {
   static const feedbackCollectionLabel = 'feedback';
 
   static const savedLocaleCodeKey = 'userLocaleCode';
+  static const defaultLocaleCode = 'en';
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rate/configs/home_page.dart';
+import 'package:rate/pages/home_page.dart';
 import 'package:rate/pages/feedback_page.dart';
 import 'package:rate/pages/storage_page.dart';
 

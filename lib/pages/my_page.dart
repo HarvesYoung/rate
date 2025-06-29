@@ -1,15 +1,19 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rate/l10n/generated/app_localizations.dart';
 import 'package:rate/pages/feedback_page.dart';
+import 'package:rate/providers/locale_provider.dart';
 import 'package:rate/utils/languages.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:rate/configs/configs.dart';
 
-class MyPage extends StatelessWidget {
+class MyPage extends ConsumerWidget {
   const MyPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
 
     // system language code
     final locale = PlatformDispatcher.instance.locale;
@@ -59,7 +63,7 @@ class MyPage extends StatelessWidget {
                 ),
                 dense: true,
                 trailing: Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black26),
-                onTap: () => debugPrint('language'),
+                onTap: () => debugPrint('notification'),
                 // contentPadding: EdgeInsets.symmetric(vertical: 6),
               ),
             ),
@@ -85,8 +89,7 @@ class MyPage extends StatelessWidget {
                     const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black26)
                   ],
                 ),
-                onTap: () => _showLanguageSelection(context),
-                // contentPadding: EdgeInsets.symmetric(vertical: 6),
+                onTap: () => _showLanguageSelection(context, ref),
               ),
             ),
             const SizedBox(height: 10,),
@@ -158,7 +161,7 @@ class MyPage extends StatelessWidget {
     );
   } // build() end
 
-  void _showLanguageSelection(BuildContext context) {
+  void _showLanguageSelection(BuildContext context, WidgetRef ref) {
     showCupertinoDialog(
       context: context,
       barrierDismissible: true,
@@ -176,9 +179,13 @@ class MyPage extends StatelessWidget {
             ),
             actions: languages.entries.map((entry) {
               return CupertinoActionSheetAction(
-                onPressed: () {
-                  // todo
-                  debugPrint(entry.key);
+                onPressed: () async {
+                  final prefs = await SharedPreferences.getInstance();
+                  prefs.setString(AppConfig.savedLocaleCodeKey, entry.key);
+
+                  ref.read(localeProvider.notifier).state = Locale(entry.key);
+
+                  if(!context.mounted) return;
                   Navigator.pop(context);
                 },
                 child: Text(entry.value, style: TextStyle(
