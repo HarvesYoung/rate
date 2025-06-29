@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -59,7 +58,7 @@ class MyPage extends ConsumerWidget {
                 ),
                 dense: true,
                 trailing: Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black26),
-                onTap: () => debugPrint('notification'),
+                onTap: () => Navigator.of(context).pushNamed('notification')
               ),
             ),
             const SizedBox(height: 10,),
