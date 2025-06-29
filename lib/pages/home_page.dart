@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:rate/configs/custom_navigation_bar_items_config.dart';
-import 'package:rate/pages/my_page.dart';
-import 'package:rate/pages/query_rate_page.dart';
+import 'package:rate/l10n/generated/app_localizations.dart';
+import 'package:rate/pages/pages.dart';
 
 class HomePage extends HookWidget {
   const HomePage({super.key});
@@ -28,7 +27,18 @@ class HomePage extends HookWidget {
         selectedFontSize: 12,
         unselectedFontSize: 12,
         selectedItemColor: Colors.purpleAccent,
-        items: customNavigationBarItemsConfig,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.currency_exchange),
+            activeIcon: Icon(Icons.currency_exchange, color: Colors.purpleAccent,),
+            label: AppLocalizations.of(context)!.rate,
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person_2_outlined),
+              activeIcon: Icon(Icons.person_2, color: Colors.purpleAccent,),
+              label: AppLocalizations.of(context)!.me
+          ),
+        ],
       ),
     );
   }

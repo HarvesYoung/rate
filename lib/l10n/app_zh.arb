@@ -1,5 +1,15 @@
 {
   "@@locale": "zh",
   "notificationTitle": "通知设定",
-  "language": "语言"
+  "language": "语言",
+  "languageDescription": "默认显示系统语言",
+  "rate": "汇率",
+  "me": "我",
+  "activeLanguage": "简体中文",
+  "languageTitle": "请选择一种语言",
+  "languageSubTitle": "app内部显示的语言",
+  "cancel": "取消",
+  "feedback": "反馈",
+  "storage": "存储",
+  "about": "关于irate"
 }

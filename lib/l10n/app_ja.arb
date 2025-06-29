@@ -1,5 +1,15 @@
 {
   "@@locale": "ja",
   "notificationTitle": "通知設定",
-  "language": "言語"
+  "language": "言語",
+  "languageDescription": "デフォルトにて　システム言語",
+  "rate": "為替",
+  "me": "マイページ",
+  "activeLanguage": "日本語",
+  "languageTitle": "言語を選んでください",
+  "languageSubTitle": "アプリに表示される言語",
+  "cancel": "キャンセル",
+  "feedback": "フィードバック",
+  "storage": "ストレージ",
+  "about": "irateについて"
 }

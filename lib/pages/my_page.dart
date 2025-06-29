@@ -15,10 +15,6 @@ class MyPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    // system language code
-    final locale = PlatformDispatcher.instance.locale;
-    // final currentLanguage = useState(locale.languageCode);
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white38,
@@ -64,7 +60,6 @@ class MyPage extends ConsumerWidget {
                 dense: true,
                 trailing: Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black26),
                 onTap: () => debugPrint('notification'),
-                // contentPadding: EdgeInsets.symmetric(vertical: 6),
               ),
             ),
             const SizedBox(height: 10,),
@@ -76,7 +71,9 @@ class MyPage extends ConsumerWidget {
                   fontSize: 14,
                   color: Colors.black87
                 ),),
-                subtitle: const Text('默认显示跟随系统', style: TextStyle(
+                subtitle: Text(
+                  AppLocalizations.of(context)!.languageDescription,
+                  style: TextStyle(
                   fontSize: 10,
                   color: Colors.grey
                 ),),
@@ -84,7 +81,7 @@ class MyPage extends ConsumerWidget {
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(languages[locale.languageCode] ?? ''),
+                    Text(languages[ref.watch(localeProvider).languageCode] ?? ''),
                     const SizedBox(width: 5,),
                     const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black26)
                   ],
@@ -105,7 +102,7 @@ class MyPage extends ConsumerWidget {
               ),
               child: ListTile(
                 leading: const Icon(Icons.feedback),
-                title: const Text('反馈', style: TextStyle(
+                title: Text(AppLocalizations.of(context)!.feedback, style: TextStyle(
                     fontSize: 14,
                     color: Colors.black87
                 ),),
@@ -131,7 +128,7 @@ class MyPage extends ConsumerWidget {
               ),
               child: ListTile(
                 leading: const Icon(Icons.storage),
-                title: const Text('储存', style: TextStyle(
+                title: Text(AppLocalizations.of(context)!.storage, style: TextStyle(
                     fontSize: 14,
                     color: Colors.black87
                 ),),
@@ -145,7 +142,7 @@ class MyPage extends ConsumerWidget {
               color: Colors.white,
               child: ListTile(
                 leading: const Icon(Icons.info),
-                title: const Text('关于rate', style: TextStyle(
+                title: Text(AppLocalizations.of(context)!.about, style: TextStyle(
                     fontSize: 14,
                     color: Colors.black87
                 ),),
@@ -169,11 +166,11 @@ class MyPage extends ConsumerWidget {
         return Container(
           alignment: Alignment.bottomCenter,
           child: CupertinoActionSheet(
-            title: const Text('Please choose a language'),
-            message: const Text('the language you use in this application'),
+            title: Text(AppLocalizations.of(context)!.languageTitle),
+            message: Text(AppLocalizations.of(context)!.languageSubTitle),
             cancelButton: CupertinoActionSheetAction(
               onPressed: () => Navigator.pop(context),
-              child: const Text('Cancel', style: TextStyle(
+              child: Text(AppLocalizations.of(context)!.cancel, style: TextStyle(
                 fontSize: 14
               ),),
             ),
