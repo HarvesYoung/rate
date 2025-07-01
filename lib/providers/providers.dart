@@ -6,4 +6,5 @@ export 'picked_image_notifier_provider.dart';
 export 'rate_state_notifier_provider.dart';
 export 'source_info_state_notifier_provider.dart';
 export 'target_info_state_notifier_provider.dart';
+export 'theme_mode_provider.dart';
 export 'upload_progress_provider.dart';

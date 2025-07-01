@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rate/l10n/generated/app_localizations.dart';
 import 'package:rate/pages/feedback_page.dart';
 import 'package:rate/providers/locale_provider.dart';
+import 'package:rate/providers/providers.dart';
 import 'package:rate/utils/languages.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:rate/configs/configs.dart';
@@ -21,7 +22,10 @@ class MyPage extends ConsumerWidget {
           IconButton(
             icon: Icon(Icons.dark_mode_outlined, color: Colors.black54),
             onPressed: () {
-              debugPrint('mode switch');
+              // debugPrint('mode name = ')
+              final currentMode = ref.read(themeModeProvider);
+              ref.read(themeModeProvider.notifier).state =
+                  currentMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
             },
           ),
           IconButton(
