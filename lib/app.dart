@@ -4,8 +4,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rate/configs/custom_routes_config.dart';
 import 'package:rate/l10n/generated/app_localizations.dart';
 import 'package:rate/providers/providers.dart';
+import 'package:rate/themes/dark_theme.dart';
+import 'package:rate/themes/light.theme.dart';
 
-class App extends HookConsumerWidget {
+class App extends ConsumerWidget {
   const App({super.key});
 
   @override
@@ -26,13 +28,8 @@ class App extends HookConsumerWidget {
         GlobalCupertinoLocalizations.delegate
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      // theme: ThemeData(
-      //   splashFactory: NoSplash.splashFactory,
-      //   splashColor: Colors.transparent,
-      //   highlightColor: Colors.transparent
-      // ),
-      theme:ThemeData.light(),
-      darkTheme: ThemeData.dark(),
+      theme: lightTheme,
+      darkTheme: darkTheme,
       themeMode: themeMode,
       routes: customRoutesConfig,
       initialRoute: '/',

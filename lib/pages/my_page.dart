@@ -17,32 +17,30 @@ class MyPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white38,
         actions: [
+          /// todo light&dark mode is now under developing
+          // IconButton(
+          //   icon: Icon(Icons.dark_mode_outlined),
+          //   onPressed: () {
+          //     final currentMode = ref.read(themeModeProvider);
+          //     ref.read(themeModeProvider.notifier).state =
+          //         currentMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
+          //   },
+          // ),
+          /// light&dark mode is now under developing end
           IconButton(
-            icon: Icon(Icons.dark_mode_outlined, color: Colors.black54),
+            icon: Icon(Icons.notifications_none_outlined, color: Theme.of(context).iconTheme.color,),
             onPressed: () {
-              // debugPrint('mode name = ')
-              final currentMode = ref.read(themeModeProvider);
-              ref.read(themeModeProvider.notifier).state =
-                  currentMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
+              debugPrint('hello');
             },
-          ),
-          IconButton(
-            icon: Icon(Icons.notifications_none_outlined, color: Colors.black54,),
-            onPressed: null,
           )
         ],
       ),
-      body: Container(
+      body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10),
-        decoration: BoxDecoration(
-          color: Colors.white38,
-        ),
         child: ListView(
           children: [
             UserAccountsDrawerHeader(
-              // currentAccountPicture: ,
               accountName: Text('harves'),
               accountEmail: Text('harvesyang@gmail.com'),
             ),
@@ -50,52 +48,51 @@ class MyPage extends ConsumerWidget {
             //   height: 100,
             // ),
             Container(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.primaryContainer,
               child: ListTile(
                 leading: const Icon(Icons.notifications),
                 title: Text(
                   AppLocalizations.of(context)!.notificationTitle,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.black87
-                  ),
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 dense: true,
-                trailing: Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black26),
+                trailing: Icon(Icons.arrow_forward_ios, size: 14, color: Theme.of(context).iconTheme.color),
                 onTap: () => Navigator.of(context).pushNamed('notification')
               ),
             ),
             const SizedBox(height: 10,),
             Container(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.primaryContainer,
               child: ListTile(
                 leading: const Icon(Icons.language),
-                title: Text(AppLocalizations.of(context)!.language, style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.black87
-                ),),
+                title: Text(
+                  AppLocalizations.of(context)!.language,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
                 subtitle: Text(
                   AppLocalizations.of(context)!.languageDescription,
-                  style: TextStyle(
-                  fontSize: 10,
-                  color: Colors.grey
-                ),),
+                  style: Theme.of(context).textTheme.bodySmall),
                 dense: true,
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(languages[ref.watch(localeProvider).languageCode] ?? ''),
+                    Text(
+                      languages[ref.watch(localeProvider).languageCode] ?? '',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primaryFixed
+                      ),
+                    ),
                     const SizedBox(width: 5,),
-                    const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black26)
+                    Icon(Icons.arrow_forward_ios, size: 14, color: Theme.of(context).iconTheme.color)
                   ],
                 ),
                 onTap: () => _showLanguageSelection(context, ref),
               ),
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(height: 10),
             Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.primaryContainer,
                 border: Border(
                   bottom: BorderSide(
                     color: Colors.grey.shade100,
@@ -105,12 +102,12 @@ class MyPage extends ConsumerWidget {
               ),
               child: ListTile(
                 leading: const Icon(Icons.feedback),
-                title: Text(AppLocalizations.of(context)!.feedback, style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.black87
-                ),),
+                title: Text(
+                  AppLocalizations.of(context)!.feedback,
+                  style: Theme.of(context).textTheme.bodyMedium
+                ),
                 dense: true,
-                trailing: const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black26),
+                trailing: Icon(Icons.arrow_forward_ios, size: 14, color: Theme.of(context).iconTheme.color),
                 onTap: () => Navigator.of(context).push(
                   NoSwipeCupertinoPageRoute(
                     builder: (_) => FeedbackPage()
@@ -121,7 +118,7 @@ class MyPage extends ConsumerWidget {
             ),
             Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.primaryContainer,
                 border: Border(
                   bottom: BorderSide(
                     color: Colors.grey.shade100,
@@ -131,26 +128,26 @@ class MyPage extends ConsumerWidget {
               ),
               child: ListTile(
                 leading: const Icon(Icons.storage),
-                title: Text(AppLocalizations.of(context)!.storage, style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.black87
-                ),),
+                title: Text(
+                  AppLocalizations.of(context)!.storage,
+                  style: Theme.of(context).textTheme.bodyMedium
+                ),
                 dense: true,
-                trailing: const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black26),
+                trailing: Icon(Icons.arrow_forward_ios, size: 14, color: Theme.of(context).iconTheme.color),
                 onTap: () => Navigator.of(context).pushNamed('storage'),
                 // contentPadding: EdgeInsets.symmetric(vertical: 6),
               ),
             ),
             Container(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.primaryContainer,
               child: ListTile(
                 leading: const Icon(Icons.info),
-                title: Text(AppLocalizations.of(context)!.about, style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.black87
-                ),),
+                title: Text(
+                  AppLocalizations.of(context)!.about,
+                  style: Theme.of(context).textTheme.bodyMedium
+                ),
                 dense: true,
-                trailing: const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black26),
+                trailing: Icon(Icons.arrow_forward_ios, size: 14, color: Theme.of(context).iconTheme.color),
                 onTap: () => _showAboutRate(context),
                 // contentPadding: EdgeInsets.symmetric(vertical: 6),
               ),
