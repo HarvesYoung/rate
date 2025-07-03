@@ -11,5 +11,6 @@
   "cancel": "cancel",
   "feedback": "feedback",
   "storage": "storage",
-  "about": "about irate"
+  "about": "about irate",
+  "receiveNotification": "allow to receive notification"
 }

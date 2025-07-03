@@ -11,5 +11,6 @@
   "cancel": "キャンセル",
   "feedback": "フィードバック",
   "storage": "ストレージ",
-  "about": "irateについて"
+  "about": "irateについて",
+  "receiveNotification": "通知"
 }

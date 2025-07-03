@@ -43,7 +43,7 @@ class _NotificationPageState extends State<NotificationPage> {
               child: Row(
                 children: [
                   Expanded(
-                    child: const Text('允许接收通知'),
+                    child: Text(AppLocalizations.of(context)!.receiveNotification),
                   ),
                   Transform.scale(
                     scale: 0.8,
@@ -75,5 +75,5 @@ class _NotificationPageState extends State<NotificationPage> {
 
   Future<void> _openSettings() async {
     await openAppSettings();
-  }
+  } // _openSettings() end
 }

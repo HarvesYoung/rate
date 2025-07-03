@@ -40,13 +40,7 @@ class MyPage extends ConsumerWidget {
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: ListView(
           children: [
-            UserAccountsDrawerHeader(
-              accountName: Text('harves'),
-              accountEmail: Text('harvesyang@gmail.com'),
-            ),
-            // Container(
-            //   height: 100,
-            // ),
+
             Container(
               color: Theme.of(context).colorScheme.primaryContainer,
               child: ListTile(

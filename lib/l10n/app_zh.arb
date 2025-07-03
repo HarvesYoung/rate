@@ -11,5 +11,6 @@
   "cancel": "取消",
   "feedback": "反馈",
   "storage": "存储",
-  "about": "关于irate"
+  "about": "关于irate",
+  "receiveNotification": "允许通知"
 }
