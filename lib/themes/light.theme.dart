@@ -26,6 +26,6 @@ ThemeData lightTheme = ThemeData(
     bodySmall: const TextStyle().copyWith(
       fontSize: 10,
       color: Colors.grey
-    )
-  )
+    ),
+  ),
 );

@@ -29,9 +29,11 @@ class MyPage extends ConsumerWidget {
           // ),
           /// light&dark mode is now under developing end
           IconButton(
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
             icon: Icon(Icons.notifications_none_outlined, color: Theme.of(context).iconTheme.color,),
             onPressed: () {
-              debugPrint('hello');
+              Navigator.of(context).pushNamed('notificationList');
             },
           )
         ],
