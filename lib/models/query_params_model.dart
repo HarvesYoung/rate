@@ -1,15 +1,16 @@
 
 class QueryParamsModel {
-  final String access_key;
+  final String accessKey;
   final String symbols;
 
 
   const QueryParamsModel({
-    required this.access_key,
+    required this.accessKey,
     required this.symbols
   });
 
 
+  @override
   String toString() {
     return '';
   }

@@ -55,7 +55,7 @@ class DioService {
           String errorMsg;
           final statusCode = e.response?.statusCode;
           debugPrint('---------------DioException---------------');
-          debugPrint('HTTP Status = ${statusCode}. Message: ${e.response?.data}}');
+          debugPrint('HTTP Status = $statusCode. Message: ${e.response?.data}}');
           debugPrint('---------------DioException end---------------');
           // switch(statusCode) {
           //   case null:
