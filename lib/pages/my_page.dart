@@ -225,8 +225,8 @@ class MyPage extends StatelessWidget {
 
 class NoSwipeCupertinoPageRoute<T> extends CupertinoPageRoute<T> {
   NoSwipeCupertinoPageRoute({
-    required WidgetBuilder builder
-  }) : super(builder: builder);
+    required super.builder
+  });
 
   @override
   bool get popGestureEnabled => false;
