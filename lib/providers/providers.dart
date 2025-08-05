@@ -6,3 +6,4 @@ export 'rate_state_notifier_provider.dart';
 export 'source_info_state_notifier_provider.dart';
 export 'target_info_state_notifier_provider.dart';
 export 'upload_progress_provider.dart';
+export 'is_notification_available_provider.dart';

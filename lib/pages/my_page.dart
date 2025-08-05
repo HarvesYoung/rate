@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rate/pages/feedback_page.dart';
 import 'package:rate/utils/languages.dart';
 
@@ -21,12 +22,12 @@ class MyPage extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.dark_mode_outlined, color: Colors.black54),
             onPressed: () {
-              debugPrint('mode switch');
+              Fluttertoast.showToast(msg: 'Under Developing', gravity: ToastGravity.CENTER);
             },
           ),
           IconButton(
             icon: Icon(Icons.notifications_none_outlined, color: Colors.black54,),
-            onPressed: null,
+            onPressed: () => Navigator.of(context).pushNamed('notificationList')
           )
         ],
       ),
@@ -37,14 +38,12 @@ class MyPage extends StatelessWidget {
         ),
         child: ListView(
           children: [
-            UserAccountsDrawerHeader(
-              // currentAccountPicture: ,
-              accountName: Text('harves'),
-              accountEmail: Text('harvesyang@gmail.com'),
-            ),
-            // Container(
-            //   height: 100,
+            // UserAccountsDrawerHeader(
+            //   // currentAccountPicture: ,
+            //   accountName: Text('harves'),
+            //   accountEmail: Text('harvesyang@gmail.com'),
             // ),
+
             Container(
               color: Colors.white,
               child: ListTile(
@@ -55,11 +54,12 @@ class MyPage extends StatelessWidget {
                 ),),
                 dense: true,
                 trailing: Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black26),
-                onTap: () => debugPrint('language'),
-                // contentPadding: EdgeInsets.symmetric(vertical: 6),
+                onTap: () => Navigator.of(context).pushNamed('customNotificationSetting')
               ),
             ),
+
             const SizedBox(height: 10,),
+
             Container(
               color: Colors.white,
               child: ListTile(
@@ -85,7 +85,9 @@ class MyPage extends StatelessWidget {
                 // contentPadding: EdgeInsets.symmetric(vertical: 6),
               ),
             ),
+
             const SizedBox(height: 10,),
+
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -112,6 +114,7 @@ class MyPage extends StatelessWidget {
                 // contentPadding: EdgeInsets.symmetric(vertical: 6),
               ),
             ),
+
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -134,6 +137,7 @@ class MyPage extends StatelessWidget {
                 // contentPadding: EdgeInsets.symmetric(vertical: 6),
               ),
             ),
+
             Container(
               color: Colors.white,
               child: ListTile(
@@ -148,6 +152,7 @@ class MyPage extends StatelessWidget {
                 // contentPadding: EdgeInsets.symmetric(vertical: 6),
               ),
             )
+
           ],
         ),
       ),
@@ -155,7 +160,7 @@ class MyPage extends StatelessWidget {
   } // build() end
 
   void _showLanguageSelection(BuildContext context) {
-    showCupertinoDialog(
+    showCupertinoModalPopup(
       context: context,
       builder: (_) {
         return Container(

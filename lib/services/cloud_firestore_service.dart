@@ -24,7 +24,7 @@ class CloudFirestoreService {
 
   /// ---------------------
   /// 添加反馈数据到 Firestore
-  /// - 参数 [item]：反馈数据，类型是 Map<String, dynamic>
+  /// - 参数 [item]：反馈数据，类型是 Map&ltString, dynamic&gt
   /// - 自动添加创建时间字段：createdAt（使用服务器时间）
   /// - 异常时打印错误日志并重新抛出
   /// ---------------------

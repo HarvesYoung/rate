@@ -22,7 +22,7 @@ Future<File> compressImage(File file) async {
 String generateRandomImageName() {
   final timestamp = DateTime.now().microsecondsSinceEpoch;
   final randomId = Random().nextInt(100000);
-  return 'feedback_$timestamp\_$randomId.jpg';
+  return 'feedback_${timestamp}_$randomId.jpg';
 } // generateImageName() end
 
 

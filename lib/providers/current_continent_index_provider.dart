@@ -1,23 +1,24 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rate/configs/app_config.dart';
 
 
 final currentSourceContinentIndexProvider = StateProvider(
-        (ref) => 0,
+    (ref) => AppConfig.currentSourceContinentIndex,
     name: 'current_source_continent_index'
 );
 
 final currentSourceCountryIndexProvider = StateProvider(
-        (ref) => 8,
+    (ref) => AppConfig.currentSourceCountryInex,
     name: 'current_source_country_index'
 );
 
 
 final currentTargetContinentIndexProvider = StateProvider(
-  (ref) => 0,
+  (ref) => AppConfig.currentTargetContinentIndex,
   name: 'current_target_continent_index'
 );
 
 final currentTargetCountryIndexProvider = StateProvider(
-  (ref) => 17,
+  (ref) => AppConfig.currentTargetCountryIndex,
   name: 'current_target_country_index'
 );
