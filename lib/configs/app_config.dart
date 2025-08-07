@@ -19,7 +19,8 @@ class AppConfig {
   /// - @path '我'/'反馈'
   static const percentFractionDigits = 0;
 
-  static const feedbackCollectionLabel = 'feedback';
+  // firebase collection name
+  static const feedbackCollectionName = 'feedback';
 
   static const currentSourceContinentIndex = 0; // Asia
   static const currentSourceCountryInex = 8;   // cn(China)

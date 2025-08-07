@@ -32,7 +32,7 @@ class CloudFirestoreService {
     try {
       // 添加创建时间字段，使用服务器时间（避免设备时间不准）
       item['createdAt'] = FieldValue.serverTimestamp();
-      await _db.collection(AppConfig.feedbackCollectionLabel).add(item);
+      await _db.collection(AppConfig.feedbackCollectionName).add(item);
     } on FirebaseException catch (e) {
       debugPrint('Exception ${e.code} : ${e.message}');
       rethrow;

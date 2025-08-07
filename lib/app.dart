@@ -12,7 +12,11 @@ class App extends HookWidget {
       theme: ThemeData(
         splashFactory: NoSplash.splashFactory,
         splashColor: Colors.transparent,
-        highlightColor: Colors.transparent
+        highlightColor: Colors.transparent,
+        scaffoldBackgroundColor: Colors.grey.shade50,
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: Colors.grey.shade50,
+        )
       ),
       routes: customRoutesConfig,
       initialRoute: '/',
