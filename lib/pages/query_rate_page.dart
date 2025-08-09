@@ -116,6 +116,7 @@ class QueryRatePage extends HookConsumerWidget {
                       ),
                     ),
 
+                    // switch button
                     Align(
                       alignment: Alignment.centerRight,
                       child: GestureDetector(
@@ -149,6 +150,7 @@ class QueryRatePage extends HookConsumerWidget {
                         ),
                       ),
                     ),
+                    // switch button end
 
                     Align(
                       alignment: Alignment.bottomLeft,
@@ -223,10 +225,7 @@ class QueryRatePage extends HookConsumerWidget {
 
       final provider = isSource ? sourceInfoStateNotifierProvider : targetInfoStateNotifierProvider;
 
-      if (result.name == data.name) {
-        debugPrint('The same country!');
-        return;
-      }
+      if (result.name == data.name) return;
 
       ref.read(provider.notifier).updateModelInfo(result);
       ref.read(isReadonlyStateProvider.notifier).state = true;

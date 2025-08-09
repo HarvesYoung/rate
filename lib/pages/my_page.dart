@@ -22,7 +22,11 @@ class MyPage extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.dark_mode_outlined, color: Colors.black54),
             onPressed: () {
-              Fluttertoast.showToast(msg: 'Under Developing', gravity: ToastGravity.CENTER);
+              Fluttertoast.showToast(
+                msg: 'Under Developing',
+                gravity: ToastGravity.CENTER,
+                backgroundColor: Colors.grey
+              );
             },
           ),
           IconButton(

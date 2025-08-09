@@ -16,6 +16,9 @@ class App extends HookWidget {
         scaffoldBackgroundColor: Colors.grey.shade50,
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           backgroundColor: Colors.grey.shade50,
+        ),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.grey.shade50,
         )
       ),
       routes: customRoutesConfig,
