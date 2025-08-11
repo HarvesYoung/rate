@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rate/widgets/notification_list_widget.dart';
+import 'package:rate/widgets/notification_loading_widget.dart';
 
 
 class NotificationList extends HookWidget {
@@ -18,7 +19,7 @@ class NotificationList extends HookWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('notification list'),
+        title: const Text('notifications'),
       ),
       body: FutureBuilder(
         future: notificationList.value,
@@ -27,10 +28,9 @@ class NotificationList extends HookWidget {
             return Text('has error');
           }
           if(snapshot.connectionState == ConnectionState.done) {
-            debugPrint(notificationList.toString());
             return NotificationListWidget();
           }
-          return const Text('加载····');
+          return const NotificationLoadingWidget();
         },
       ),
     );
@@ -39,7 +39,7 @@ class NotificationList extends HookWidget {
 
   /// load the notification list data
   Future<List<String>> _fetchNotificationList() async {
-    return await Future.delayed(const Duration(seconds: 4), () {
+    return await Future.delayed(const Duration(seconds: 1), () {
       debugPrint('delayed');
       return ['title A', 'title B'];
     });
