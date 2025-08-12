@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:rate/widgets/notification_list_widget.dart';
-import 'package:rate/widgets/notification_loading_widget.dart';
+import 'package:rate/widgets/widgets.dart';
 
 
 class NotificationList extends HookWidget {
