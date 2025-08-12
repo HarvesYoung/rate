@@ -7,18 +7,21 @@ class App extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final Color commonBackgroundColor = Colors.grey.shade50;
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         splashFactory: NoSplash.splashFactory,
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
-        scaffoldBackgroundColor: Colors.grey.shade50,
+        scaffoldBackgroundColor: commonBackgroundColor,
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: Colors.grey.shade50,
+          backgroundColor: commonBackgroundColor,
         ),
         appBarTheme: AppBarTheme(
-          backgroundColor: Colors.grey.shade50,
+          backgroundColor: commonBackgroundColor,
         )
       ),
       routes: customRoutesConfig,

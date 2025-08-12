@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rate/configs/custom_navigation_bar_items_config.dart';
-import 'package:rate/pages/my_page.dart';
-import 'package:rate/pages/query_rate_page.dart';
+import 'package:rate/pages/pages.dart';
 
 class HomePage extends HookWidget {
   const HomePage({super.key});
@@ -27,7 +26,7 @@ class HomePage extends HookWidget {
         },
         selectedFontSize: 12,
         unselectedFontSize: 12,
-        selectedItemColor: Colors.purpleAccent,
+        selectedItemColor: Color(0xFF13227a),
         items: customNavigationBarItemsConfig,
       ),
     );
