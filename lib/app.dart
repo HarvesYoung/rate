@@ -23,6 +23,7 @@ class App extends HookWidget {
       ),
       routes: customRoutesConfig,
       initialRoute: '/',
+      navigatorObservers: [],
     );
   }
 }
