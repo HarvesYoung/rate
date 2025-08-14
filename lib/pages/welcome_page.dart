@@ -14,6 +14,7 @@ class _WelcomePageState extends State<WelcomePage> {
   bool showButton = false; // whether to show the button
   double buttonOpacity = 0; // the opacity of button
   static const String lottieJsonPath = 'assets/lottie/rate.json';
+  static const String firstShowFlag = 'isFirstShow';
 
   @override
   void initState() async {
@@ -72,14 +73,16 @@ class _WelcomePageState extends State<WelcomePage> {
     );
   } // build() end
 
-  Future<void> _verifyIsFirstShow() async {
+  void _verifyIsFirstShow() async {
     final prefs = await SharedPreferences.getInstance();
-    final isFirstShow = prefs.getBool('isFirstShow') ?? false;
+    final isFirstShow = prefs.getBool(firstShowFlag) ?? true;
 
-    if(isFirstShow && mounted) {
+    if(!isFirstShow && mounted) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Navigator.pushReplacementNamed(context, 'home');
       });
+    } else {
+      prefs.setBool(firstShowFlag, false);
     }
   } // _verifyIsFirstShow() end
 
