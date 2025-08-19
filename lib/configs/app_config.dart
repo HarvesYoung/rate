@@ -16,13 +16,15 @@ class AppConfig {
 
   static const feedbackImageLength = 3;
 
-  /// - @path '我'/'反馈'
+  /// - @path 'me'/'feedback'
   static const percentFractionDigits = 0;
 
   // firebase collection name
   static const feedbackCollectionName = 'feedback';
 
   static const savedLocaleCodeKey = 'userLocaleCode';
+
+  // default language locale
   static const defaultLocaleCode = 'en';
 
   static const currentSourceContinentIndex = 0; // Asia
@@ -31,11 +33,11 @@ class AppConfig {
   static const currentTargetContinentIndex = 0; // Asia
   static const currentTargetCountryIndex = 17; // jp(Japan)
 
-  /// 是否初始接收app推送
+  /// Whether to receive application notification
   /// @used: is_readonly_state_provider.dart
   static const isDefaultNotificationAvailable = false;
 
-  /// 是否允许接收推送的flag 名称
+  /// The name of notification switch key
   /// @used: custom_notification_setting.dart
   static const kNotificationSwitchKey = 'is_notification_available';
 }
