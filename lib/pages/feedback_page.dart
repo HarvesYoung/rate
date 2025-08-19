@@ -8,8 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rate/configs/app_config.dart';
 import 'package:rate/providers/providers.dart';
-import 'package:rate/services/cloud_firestore_service.dart';
-import 'package:rate/services/firebase_storage_service.dart';
+import 'package:rate/services/services.dart';
 import 'package:rate/utils/functions.dart';
 import 'package:rate/widgets/widgets.dart';
 

@@ -22,6 +22,9 @@ class AppConfig {
   // firebase collection name
   static const feedbackCollectionName = 'feedback';
 
+  static const savedLocaleCodeKey = 'userLocaleCode';
+  static const defaultLocaleCode = 'en';
+
   static const currentSourceContinentIndex = 0; // Asia
   static const currentSourceCountryInex = 8;   // cn(China)
 

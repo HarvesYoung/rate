@@ -1,19 +1,20 @@
-import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rate/l10n/generated/app_localizations.dart';
 import 'package:rate/pages/feedback_page.dart';
+import 'package:rate/providers/locale_provider.dart';
+import 'package:rate/providers/providers.dart';
 import 'package:rate/utils/languages.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:rate/configs/configs.dart';
 
-class MyPage extends StatelessWidget {
+class MyPage extends ConsumerWidget {
   const MyPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-
-    // system language
-    final locale = PlatformDispatcher.instance.locale;
-    // final currentLanguage = useState(locale.languageCode);
+  Widget build(BuildContext context, WidgetRef ref) {
 
     return Scaffold(
       appBar: AppBar(
@@ -52,13 +53,13 @@ class MyPage extends StatelessWidget {
               color: Colors.white,
               child: ListTile(
                 leading: const Icon(Icons.notifications),
-                title: const Text('通知设定', style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.black87
-                ),),
+                title: Text(
+                  AppLocalizations.of(context)!.notificationTitle,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
                 dense: true,
-                trailing: Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black26),
-                onTap: () => Navigator.of(context).pushNamed('customNotificationSetting')
+                trailing: Icon(Icons.arrow_forward_ios, size: 14, color: Theme.of(context).iconTheme.color),
+                onTap: () => Navigator.of(context).pushNamed('notification')
               ),
             ),
 
@@ -68,25 +69,28 @@ class MyPage extends StatelessWidget {
               color: Colors.white,
               child: ListTile(
                 leading: const Icon(Icons.language),
-                title: const Text('语言', style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.black87
-                ),),
-                subtitle: const Text('默认显示跟随系统', style: TextStyle(
-                  fontSize: 10,
-                  color: Colors.grey
-                ),),
+                title: Text(
+                  AppLocalizations.of(context)!.language,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                subtitle: Text(
+                  AppLocalizations.of(context)!.languageDescription,
+                  style: Theme.of(context).textTheme.bodySmall),
                 dense: true,
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(languages[locale.languageCode] ?? ''),
+                    Text(
+                      languages[ref.watch(localeProvider).languageCode] ?? '',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primaryFixed
+                      ),
+                    ),
                     const SizedBox(width: 5,),
-                    const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black26)
+                    Icon(Icons.arrow_forward_ios, size: 14, color: Theme.of(context).iconTheme.color)
                   ],
                 ),
-                onTap: () => _showLanguageSelection(context),
-                // contentPadding: EdgeInsets.symmetric(vertical: 6),
+                onTap: () => _showLanguageSelection(context, ref),
               ),
             ),
 
@@ -104,10 +108,10 @@ class MyPage extends StatelessWidget {
               ),
               child: ListTile(
                 leading: const Icon(Icons.feedback),
-                title: const Text('反馈', style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.black87
-                ),),
+                title: Text(
+                  AppLocalizations.of(context)!.feedback,
+                  style: Theme.of(context).textTheme.bodyMedium
+                ),
                 dense: true,
                 trailing: const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black26),
                 onTap: () => Navigator.of(context).push(
@@ -118,7 +122,6 @@ class MyPage extends StatelessWidget {
                 // contentPadding: EdgeInsets.symmetric(vertical: 6),
               ),
             ),
-
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -131,10 +134,10 @@ class MyPage extends StatelessWidget {
               ),
               child: ListTile(
                 leading: const Icon(Icons.storage),
-                title: const Text('储存', style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.black87
-                ),),
+                title: Text(
+                  AppLocalizations.of(context)!.storage,
+                  style: Theme.of(context).textTheme.bodyMedium
+                ),
                 dense: true,
                 trailing: const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black26),
                 onTap: () => Navigator.of(context).pushNamed('storage'),
@@ -143,13 +146,13 @@ class MyPage extends StatelessWidget {
             ),
 
             Container(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.primaryContainer,
               child: ListTile(
                 leading: const Icon(Icons.info),
-                title: const Text('关于rate', style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.black87
-                ),),
+                title: Text(
+                  AppLocalizations.of(context)!.about,
+                  style: Theme.of(context).textTheme.bodyMedium
+                ),
                 dense: true,
                 trailing: const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black26),
                 onTap: () => _showAboutRate(context),
@@ -163,26 +166,31 @@ class MyPage extends StatelessWidget {
     );
   } // build() end
 
-  void _showLanguageSelection(BuildContext context) {
+  void _showLanguageSelection(BuildContext context, WidgetRef ref) {
     showCupertinoModalPopup(
       context: context,
+      barrierDismissible: true,
       builder: (_) {
         return Container(
           alignment: Alignment.bottomCenter,
           child: CupertinoActionSheet(
-            title: const Text('Please choose a language'),
-            message: const Text('the language you use in this application'),
+            title: Text(AppLocalizations.of(context)!.languageTitle),
+            message: Text(AppLocalizations.of(context)!.languageSubTitle),
             cancelButton: CupertinoActionSheetAction(
               onPressed: () => Navigator.pop(context),
-              child: const Text('Cancel', style: TextStyle(
+              child: Text(AppLocalizations.of(context)!.cancel, style: TextStyle(
                 fontSize: 14
               ),),
             ),
             actions: languages.entries.map((entry) {
               return CupertinoActionSheetAction(
-                onPressed: () {
-                  // todo
-                  debugPrint(entry.key);
+                onPressed: () async {
+                  final prefs = await SharedPreferences.getInstance();
+                  prefs.setString(AppConfig.savedLocaleCodeKey, entry.key);
+
+                  ref.read(localeProvider.notifier).state = Locale(entry.key);
+
+                  if(!context.mounted) return;
                   Navigator.pop(context);
                 },
                 child: Text(entry.value, style: TextStyle(
@@ -236,6 +244,11 @@ class NoSwipeCupertinoPageRoute<T> extends CupertinoPageRoute<T> {
   NoSwipeCupertinoPageRoute({
     required super.builder
   });
+
+  // not good
+  // NoSwipeCupertinoPageRoute({
+  //   required WidgetBuilder builder
+  // }) : super(builder: builder);
 
   @override
   bool get popGestureEnabled => false;

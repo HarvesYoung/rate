@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-
+/// This config file is no longer necessary
 final List<BottomNavigationBarItem> customNavigationBarItemsConfig = [
   BottomNavigationBarItem(
     icon: Icon(Icons.currency_exchange),

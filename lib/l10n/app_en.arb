@@ -1,0 +1,16 @@
+{
+  "@@locale": "en",
+  "notificationTitle": "notification setting",
+  "language": "language",
+  "languageDescription": "System language is as default",
+  "rate": "rate",
+  "me": "me",
+  "activeLanguage": "English",
+  "languageTitle": "Please choose a language",
+  "languageSubTitle": "the language will be displayed in this app",
+  "cancel": "cancel",
+  "feedback": "feedback",
+  "storage": "storage",
+  "about": "about irate",
+  "receiveNotification": "allow to receive notification"
+}

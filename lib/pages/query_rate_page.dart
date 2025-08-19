@@ -2,18 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:rate/configs/app_config.dart';
-import 'package:rate/models/currency_data_model.dart';
-import 'package:rate/providers/exchange_response_provider.dart';
-import 'package:rate/providers/rate_state_notifier_provider.dart';
-import 'package:rate/providers/source_info_state_notifier_provider.dart';
-import 'package:rate/providers/target_info_state_notifier_provider.dart';
-import 'package:rate/widgets/build_text_field_widget.dart';
-import 'package:rate/widgets/currency_picker_model_widget.dart';
-import 'package:rate/providers/is_readonly_state_provider.dart';
-import 'package:rate/widgets/marketing_text_widget.dart';
-import 'package:rate/widgets/shimmer_row_widget.dart';
-import 'package:rate/widgets/text_rich_widget.dart';
+import 'package:rate/widgets/widgets.dart';
+import 'package:rate/providers/providers.dart';
+import 'package:rate/models/models.dart';
+import 'package:rate/configs/configs.dart';
 
 class QueryRatePage extends HookConsumerWidget {
   const QueryRatePage({super.key});
@@ -42,9 +34,11 @@ class QueryRatePage extends HookConsumerWidget {
           // ref.read(targetInfoProvider.notifier).state.initialText = resp.targetNumber;
           /// 从final targetInfoProvider = StateProvider<CurrencyDataModel>()
           /// 改为final targetInfoProvider = StateNotifierProvider<CurrencyDataNotifier, CurrencyDataModel>()
+          // if(!context.mounted) return;
           ref.read(targetInfoStateNotifierProvider.notifier).setInitialText(resp.targetNumber);
           ref.read(sourceInfoStateNotifierProvider.notifier).setInitialText(AppConfig.initialFormatter);
           ref.read(exchangeResponseStateProvider.notifier).state = resp;
+          ref.read(isReadonlyStateProvider.notifier).state = false;
         } catch(e) {
           Fluttertoast.showToast(
             msg: e.toString(),
@@ -55,8 +49,6 @@ class QueryRatePage extends HookConsumerWidget {
             webPosition: 'center',
             fontSize: 12.0
           );
-        } finally {
-          ref.read(isReadonlyStateProvider.notifier).state = false;
         }
       });
       return null;
