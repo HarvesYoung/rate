@@ -8,5 +8,5 @@ final Map<String, WidgetBuilder> customRoutesConfig = {
   'storage': (_) => const StoragePage(),
   'notification': (_) => const NotificationPage(),
   'customNotificationSetting': (_) => const CustomNotificationSetting(),
-  'notificationList': (_) => const NotificationList(),
+  'notificationList': (_) => const NotificationListPage(),
 };

@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
-class NotificationListWidget extends StatelessWidget {
-  NotificationListWidget({super.key});
+class NotificationListItemWidget extends StatelessWidget {
+  NotificationListItemWidget({super.key});
 
   final _refreshController = RefreshController(initialRefresh: false);
   final List<int> items = [1, 2, 3];
@@ -12,6 +12,8 @@ class NotificationListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.all(5),
+        decoration: BoxDecoration(
+        ),
         child: SmartRefresher(
           enablePullDown: true,
           enablePullUp: true,
@@ -51,8 +53,14 @@ class NotificationListWidget extends StatelessWidget {
                   },
                 child: Container(
                   decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(5))
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    border: Border(
+                      bottom: BorderSide(
+                        width: 1,
+                        color: Colors.grey.shade200
+                      )
+                    )
                   ),
                   child: ListTile(
                     leading: Icon(Icons.add_a_photo),
