@@ -36,6 +36,7 @@ class MyPage extends ConsumerWidget {
                 icon: Icon(Icons.notifications_none_outlined, color: Colors.black54,),
                 onPressed: () => Navigator.of(context).pushNamed('notificationList')
               ),
+              // todo to control whether to show badge
               Positioned(
                 right: 12,
                 top: 12,
