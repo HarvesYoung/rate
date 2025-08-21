@@ -17,7 +17,7 @@ class _WelcomePageState extends State<WelcomePage> {
   static const String firstShowFlag = 'isFirstShow';
 
   @override
-  void initState() async {
+  void initState() {
     super.initState();
     // verify whether logged in or not
     _verifyIsFirstShow();

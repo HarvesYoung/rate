@@ -30,10 +30,30 @@ class MyPage extends ConsumerWidget {
               );
             },
           ),
-          IconButton(
-            icon: Icon(Icons.notifications_none_outlined, color: Colors.black54,),
-            onPressed: () => Navigator.of(context).pushNamed('notificationList')
-          )
+          Stack(
+            children: [
+              IconButton(
+                icon: Icon(Icons.notifications_none_outlined, color: Colors.black54,),
+                onPressed: () => Navigator.of(context).pushNamed('notificationList')
+              ),
+              Positioned(
+                right: 12,
+                top: 12,
+                child: Container(
+                  width: 12,
+                  height: 12,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.red,
+                    border: Border.all(
+                      color: Colors.white,
+                      width: 2
+                    )
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
       body: Container(
