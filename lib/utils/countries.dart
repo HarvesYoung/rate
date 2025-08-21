@@ -27,7 +27,7 @@ const List<Map<String, String>> asianCountries = [
   {"code": "lb", "name": "Lebanon", "currency": "LBP"},
   {"code": "mo", "name": "Macau (China)", "currency": "MOP"},
   {"code": "my", "name": "Malaysia", "currency": "MYR"},
-  {"code": "mv", "name": "Maldives", "currency": "MVR"}, // 若补充了
+  {"code": "mv", "name": "Maldives", "currency": "MVR"},
   {"code": "mn", "name": "Mongolia", "currency": "MNT"},
   {"code": "mm", "name": "Myanmar", "currency": "MMK"},
   {"code": "np", "name": "Nepal", "currency": "NPR"},

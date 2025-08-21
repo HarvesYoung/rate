@@ -6,6 +6,7 @@ import 'package:rate/l10n/generated/app_localizations.dart';
 import 'package:rate/providers/providers.dart';
 import 'package:rate/themes/dark_theme.dart';
 import 'package:rate/themes/light.theme.dart';
+import 'package:rate/observers/observers.dart';
 
 class App extends ConsumerWidget {
   const App({super.key});
@@ -33,6 +34,9 @@ class App extends ConsumerWidget {
       themeMode: themeMode,
       routes: customRoutesConfig,
       initialRoute: '/',
+      navigatorObservers: [
+        CustomRouteObserver()
+      ],
     );
   }
 }

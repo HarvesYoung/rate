@@ -1,8 +1,6 @@
-
-
 import 'package:flutter/material.dart';
 
-class RouteObserver extends NavigatorObserver {
+class CustomRouteObserver extends NavigatorObserver {
 
   @override
   void didPush(Route route, Route? previousRoute) {
