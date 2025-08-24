@@ -1,7 +1,7 @@
-### project name
+### Project name
 > rate
 
-#### description
+#### Description
 > Providers more than 100 currency switch rate online.
 
 ##### How to generate language locales
