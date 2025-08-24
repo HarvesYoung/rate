@@ -1,4 +1,4 @@
-
+// This file is no longer necessary
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rate/notifiers/notification_list_notifier.dart';
 

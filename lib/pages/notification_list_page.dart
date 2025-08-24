@@ -1,28 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rate/widgets/widgets.dart';
+import 'package:rate/models/models.dart';
 
-class NotificationListPage extends HookWidget {
+class NotificationListPage extends StatefulWidget {
   const NotificationListPage({super.key});
 
   @override
+  State<NotificationListPage> createState() => NotificationListPageState();
+}
+
+class NotificationListPageState extends State<NotificationListPage> with AutomaticKeepAliveClientMixin {
+
+  late Future<List<NotificationItemModel>> notificationList;
+
+  @override
+  void initState() {
+    super.initState();
+    notificationList = _fetchNotificationList();
+  }
+
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
-    final notificationList = useState<Future<List<String>>?>(null);
-
-    useEffect((){
-      // Request for data only if notification list is empty
-      if(notificationList.value == null) {
-        notificationList.value = _fetchNotificationList();
-      }
-      return null;
-    }, []);
-
+    super.build(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('notifications'),
       ),
       body: FutureBuilder(
-        future: notificationList.value,
+        future: notificationList,
         builder: (context, snapshot) {
           if(snapshot.hasError) {
             return Text('has error');
@@ -38,10 +46,13 @@ class NotificationListPage extends HookWidget {
 
 
   /// load the notification list data
-  Future<List<String>> _fetchNotificationList() async {
+  Future<List<NotificationItemModel>> _fetchNotificationList() async {
     return await Future.delayed(const Duration(seconds: 1), () {
       debugPrint('delayed');
-      return ['title A', 'title B'];
+      return [
+        NotificationItemModel(title: 'title', subtitle: 'subtitle')
+      ];
     });
-  } // _fetchNotificationData() end
+  }
 }
+
