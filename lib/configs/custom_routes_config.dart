@@ -3,7 +3,7 @@ import 'package:rate/pages/pages.dart';
 
 final Map<String, WidgetBuilder> customRoutesConfig = {
   '/': (_) => const WelcomePage(),
-  'home': (_) => const HomePage(),
+  'home': (_) => HomePage(),
   'feedback': (_) => FeedbackPage(),
   'storage': (_) => const StoragePage(),
   'notification': (_) => const NotificationPage(),

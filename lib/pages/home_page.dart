@@ -4,9 +4,9 @@ import 'package:rate/l10n/generated/app_localizations.dart';
 import 'package:rate/pages/pages.dart';
 
 class HomePage extends HookWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
 
-  final List<Widget> _pages = const [
+  final List<Widget> _pages = [
     QueryRatePage(),
     MyPage()
   ];

@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rate/l10n/generated/app_localizations.dart';
 import 'package:rate/pages/feedback_page.dart';
 import 'package:rate/providers/locale_provider.dart';
@@ -10,11 +11,22 @@ import 'package:rate/utils/languages.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:rate/configs/configs.dart';
 
-class MyPage extends ConsumerWidget {
-  const MyPage({super.key});
+class MyPage extends HookConsumerWidget {
+  MyPage({super.key});
+
+  late final SharedPreferences prefs;
+  late final isShowBadge = useState<bool>(false);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    useEffect(() {
+      Future(() async {
+        prefs = await SharedPreferences.getInstance();
+        isShowBadge.value = prefs.getBool(AppConfig.savedNotificationKey) ?? false;
+      });
+      return null;
+    }, []);
 
     return Scaffold(
       appBar: AppBar(
@@ -34,10 +46,10 @@ class MyPage extends ConsumerWidget {
             children: [
               IconButton(
                 icon: Icon(Icons.notifications_none_outlined, color: Colors.black54,),
-                onPressed: () => Navigator.of(context).pushNamed('notificationList')
+                onPressed: () => _handleNotificationClick
               ),
-              // todo to control whether to show badge
-              Positioned(
+              // control whether to show badge
+              if(isShowBadge.value)Positioned(
                 right: 12,
                 top: 12,
                 child: Container(
@@ -259,6 +271,15 @@ class MyPage extends ConsumerWidget {
         )
     );
   } // _showAboutRate() end
+
+
+  void _handleNotificationClick(BuildContext context, SharedPreferences prefs) {
+    // Make notification badge not display
+    prefs.setBool(AppConfig.savedNotificationKey, false);
+
+    // jump to notification list page
+    Navigator.of(context).pushNamed('notificationList');
+  } // _handleNotificationClick() end
 }
 
 class NoSwipeCupertinoPageRoute<T> extends CupertinoPageRoute<T> {

@@ -40,4 +40,7 @@ class AppConfig {
   /// The name of notification switch key
   /// @used: custom_notification_setting.dart
   static const kNotificationSwitchKey = 'is_notification_available';
+
+  // The string saved in SharedPreference
+  static const savedNotificationKey = 'isShowBadge';
 }
