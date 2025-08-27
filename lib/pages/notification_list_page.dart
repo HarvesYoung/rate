@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rate/widgets/widgets.dart';
 import 'package:rate/models/models.dart';
+import 'package:rate/services/services.dart';
 
 class NotificationListPage extends StatefulWidget {
   const NotificationListPage({super.key});
@@ -16,7 +17,8 @@ class NotificationListPageState extends State<NotificationListPage> with Automat
   @override
   void initState() {
     super.initState();
-    notificationList = _fetchNotificationList();
+    // notificationList = _fetchNotificationList();
+    debugPrint( _fetchNotificationList().toString());
   }
 
   @override
@@ -46,13 +48,18 @@ class NotificationListPageState extends State<NotificationListPage> with Automat
 
 
   /// load the notification list data
-  Future<List<NotificationItemModel>> _fetchNotificationList() async {
-    return await Future.delayed(const Duration(seconds: 1), () {
-      debugPrint('delayed');
+  Future<List<NotificationItemModel>?> _fetchNotificationList() async {
+    try {
+      final instance = CloudFirestoreService();
+      final result = await instance.fetchNotificationList();
+      debugPrint('result = $result');
       return [
         NotificationItemModel(title: 'title', subtitle: 'subtitle')
       ];
-    });
+    } catch (e) {
+      debugPrint('notification_list_page error ${e.toString()}');
+    }
+    return null;
   }
 }
 

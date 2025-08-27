@@ -41,4 +41,19 @@ class CloudFirestoreService {
       rethrow;
     }
   } // addFeedback() end
+
+
+  /// fetch the notification list from firestore
+  ///
+  ///
+  Future<Map<String, dynamic>?> fetchNotificationList () async {
+    try {
+      final result = await _db.collection('notifications').get();
+      debugPrint('notification result = $result');
+      return result as Map<String, dynamic>;
+    } catch (e) {
+      debugPrint('fetchNotificationList method error ${e.toString()}');
+      rethrow;
+    }
+  } // fetchNotificationList() end
 }
