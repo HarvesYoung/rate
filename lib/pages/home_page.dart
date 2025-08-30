@@ -2,18 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rate/l10n/generated/app_localizations.dart';
 import 'package:rate/pages/pages.dart';
+import 'package:rate/observers/observers.dart';
 
 class HomePage extends HookWidget {
   HomePage({super.key});
 
   final List<Widget> _pages = [
-    QueryRatePage(),
+    const QueryRatePage(),
     MyPage()
   ];
 
   @override
   Widget build(BuildContext context) {
     final activeIndex = useState(0);
+
+    useEffect((){
+      final observer = LifecycleObserver();
+
+      WidgetsBinding.instance.addObserver(observer);
+
+      // remove the observer when exposed
+      return () {
+        WidgetsBinding.instance.removeObserver(observer);
+      };
+    }, const []);
+
     return Scaffold(
       body: IndexedStack(
         index: activeIndex.value,

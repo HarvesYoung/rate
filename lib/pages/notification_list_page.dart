@@ -60,6 +60,6 @@ class NotificationListPageState extends State<NotificationListPage> with Automat
       debugPrint('notification_list_page error ${e.toString()}');
     }
     return null;
-  }
+  } // _fetchNotificationList() end
 }
 
