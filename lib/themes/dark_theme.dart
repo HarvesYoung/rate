@@ -28,5 +28,11 @@ ThemeData darkTheme = ThemeData(
       fontSize: 10,
       color: Colors.white
     )
+  ),
+  iconButtonTheme: IconButtonThemeData(
+    style: ButtonStyle(
+      overlayColor: WidgetStateColor.transparent,
+      elevation: WidgetStatePropertyAll(0)
+    )
   )
 );

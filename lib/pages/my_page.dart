@@ -46,7 +46,7 @@ class MyPage extends HookConsumerWidget {
             children: [
               IconButton(
                 icon: Icon(Icons.notifications_none_outlined, color: Colors.black54,),
-                onPressed: () => _handleNotificationClick
+                onPressed: () => _handleNotificationClick(context)
               ),
               // control whether to show badge
               if(isShowBadge.value)Positioned(
@@ -273,12 +273,15 @@ class MyPage extends HookConsumerWidget {
   } // _showAboutRate() end
 
 
-  void _handleNotificationClick(BuildContext context, SharedPreferences prefs) {
+  void _handleNotificationClick(BuildContext context) async {
+    final prefs = await SharedPreferences.getInstance();
     // Make notification badge not display
-    prefs.setBool(AppConfig.savedNotificationKey, false);
+    // prefs.setBool(AppConfig.savedNotificationKey, false);
 
     // jump to notification list page
-    Navigator.of(context).pushNamed('notificationList');
+    if(context.mounted) {
+      Navigator.of(context).pushNamed('notificationList');
+    }
   } // _handleNotificationClick() end
 }
 

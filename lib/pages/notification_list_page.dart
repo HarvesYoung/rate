@@ -12,13 +12,13 @@ class NotificationListPage extends StatefulWidget {
 
 class NotificationListPageState extends State<NotificationListPage> with AutomaticKeepAliveClientMixin {
 
-  late Future<List<NotificationItemModel>> notificationList;
+  late Future<List<NotificationItemModel>?> notificationList;
 
   @override
   void initState() {
     super.initState();
-    // notificationList = _fetchNotificationList();
-    debugPrint( _fetchNotificationList().toString());
+    notificationList = _fetchNotificationList();
+    // _fetchNotificationList();
   }
 
   @override
@@ -31,6 +31,10 @@ class NotificationListPageState extends State<NotificationListPage> with Automat
       appBar: AppBar(
         title: const Text('notifications'),
       ),
+      // body: Container(
+      //   padding: EdgeInsets.all(10),
+      //   child: const Text('notifications list page'),
+      // ),
       body: FutureBuilder(
         future: notificationList,
         builder: (context, snapshot) {
@@ -50,12 +54,21 @@ class NotificationListPageState extends State<NotificationListPage> with Automat
   /// load the notification list data
   Future<List<NotificationItemModel>?> _fetchNotificationList() async {
     try {
+
+      const List<NotificationItemModel> modelResult = [];
+
       final instance = CloudFirestoreService();
-      final result = await instance.fetchNotificationList();
-      debugPrint('result = $result');
-      return [
-        NotificationItemModel(title: 'title', subtitle: 'subtitle')
-      ];
+      final result = await instance.fetchNotificationList(); // Future<List<Map<String, dynamic>>>
+      debugPrint('result.length = ${result.length}');
+      if(result.isEmpty) return [];
+      result.map((doc) {
+        final item = NotificationItemModel.fromJson(doc);
+        modelResult.add(item);
+      });
+      return modelResult;
+      // return [
+      //   NotificationItemModel(title: 'title', subtitle: 'subtitle')
+      // ];
     } catch (e) {
       debugPrint('notification_list_page error ${e.toString()}');
     }

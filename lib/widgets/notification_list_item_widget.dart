@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
+import 'package:rate/models/models.dart';
 
 class NotificationListItemWidget extends StatelessWidget {
   NotificationListItemWidget({super.key});
 
   final _refreshController = RefreshController(initialRefresh: false);
-  final List<int> items = [1, 2, 3];
+  final List<NotificationItemModel>? items = [];
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +46,14 @@ class NotificationListItemWidget extends StatelessWidget {
           controller: _refreshController,
           onRefresh: _onRefresh,
           onLoading: _onLoading,
-          child: ListView.builder(
+          child:
+            items == null
+              ? Center(
+          child: const Text('no data'),
+        )
+            :
+
+          ListView.builder(
             itemBuilder: (c, i) {
               return GestureDetector(
                 onTap: () {
@@ -64,13 +72,13 @@ class NotificationListItemWidget extends StatelessWidget {
                   ),
                   child: ListTile(
                     leading: Icon(Icons.add_a_photo),
-                    title: Text('hello ${items[i]}'),
+                    title: Text('hello ${items![i]}'),
                   ),
                 ),
               );
             },
             itemExtent: 100,
-            itemCount: items.length,
+            itemCount: items!.length,
           ),
         ),
     );

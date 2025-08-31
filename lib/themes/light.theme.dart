@@ -32,7 +32,13 @@ ThemeData lightTheme = ThemeData(
       color: Colors.grey
     )
   ),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: commonBackgroundColor,
-    ),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    backgroundColor: commonBackgroundColor,
+  ),
+  iconButtonTheme: IconButtonThemeData(
+    style: ButtonStyle(
+      overlayColor: WidgetStateColor.transparent,
+      elevation: WidgetStatePropertyAll(0)
+    )
+  )
 );

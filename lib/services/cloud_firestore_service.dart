@@ -46,11 +46,10 @@ class CloudFirestoreService {
   /// fetch the notification list from firestore
   ///
   ///
-  Future<Map<String, dynamic>?> fetchNotificationList () async {
+  Future<List<Map<String, dynamic>>> fetchNotificationList () async {
     try {
       final result = await _db.collection('notifications').get();
-      debugPrint('notification result = $result');
-      return result as Map<String, dynamic>;
+      return result.docs.map((doc) => doc.data()).toList();
     } catch (e) {
       debugPrint('fetchNotificationList method error ${e.toString()}');
       rethrow;
