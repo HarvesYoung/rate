@@ -4,10 +4,10 @@ import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:rate/models/models.dart';
 
 class NotificationListItemWidget extends StatelessWidget {
-  NotificationListItemWidget({super.key});
+  NotificationListItemWidget({super.key, required this.items});
 
   final _refreshController = RefreshController(initialRefresh: false);
-  final List<NotificationItemModel>? items = [];
+  final List<NotificationItemModel> items;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class NotificationListItemWidget extends StatelessWidget {
               }
               return SizedBox(
                 height: 55.0,
-                child: Center(child:body),
+                child: Center(child: body),
               );
             },
           ),
@@ -47,12 +47,11 @@ class NotificationListItemWidget extends StatelessWidget {
           onRefresh: _onRefresh,
           onLoading: _onLoading,
           child:
-            items == null
+            items.isEmpty
               ? Center(
           child: const Text('no data'),
         )
             :
-
           ListView.builder(
             itemBuilder: (c, i) {
               return GestureDetector(
@@ -72,13 +71,13 @@ class NotificationListItemWidget extends StatelessWidget {
                   ),
                   child: ListTile(
                     leading: Icon(Icons.add_a_photo),
-                    title: Text('hello ${items![i]}'),
+                    title: Text('hello ${items[i]}'),
                   ),
                 ),
               );
             },
             itemExtent: 100,
-            itemCount: items!.length,
+            itemCount: items.length,
           ),
         ),
     );
@@ -99,7 +98,7 @@ class NotificationListItemWidget extends StatelessWidget {
     try {
       // todo load data
       await Future.delayed(Duration(seconds: 1));
-      items.addAll([items.length + 1, items.length + 2]);
+      // items.addAll([items.length + 1, items.length + 2]);
       _refreshController.refreshCompleted();
     } catch(e) {
       debugPrint('error message = ${e.hashCode}:${e.toString()}');

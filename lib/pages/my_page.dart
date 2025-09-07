@@ -276,7 +276,7 @@ class MyPage extends HookConsumerWidget {
   void _handleNotificationClick(BuildContext context) async {
     final prefs = await SharedPreferences.getInstance();
     // Make notification badge not display
-    // prefs.setBool(AppConfig.savedNotificationKey, false);
+    prefs.setBool(AppConfig.savedNotificationKey, false);
 
     // jump to notification list page
     if(context.mounted) {
